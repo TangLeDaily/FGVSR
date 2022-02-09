@@ -1,0 +1,12 @@
+Namespace(train_root_path='datasets/train/', test_root_path='datasets/test/REDS4/', cuda=True, frame=100, model_mark=0, resume='', start_epoch=0, batchSize=8, nEpochs=10000, miniEpochs=0, lr=0.0001, threads=8, scale=4, loss=0)
+===> Find Cuda
+Traceback (most recent call last):
+  File "H:\PROJECT\PYTHON\FGVSR\train_EF_L_onlyLSTM.py", line 249, in <module>
+    main()
+  File "H:\PROJECT\PYTHON\FGVSR\train_EF_L_onlyLSTM.py", line 78, in main
+    torch.cuda.set_device(1)
+  File "H:\APP\Anaconda\envs\a\lib\site-packages\torch\cuda\__init__.py", line 311, in set_device
+    torch._C._cuda_setDevice(device)
+RuntimeError: CUDA error: invalid device ordinal
+CUDA kernel errors might be asynchronously reported at some other API call,so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1.

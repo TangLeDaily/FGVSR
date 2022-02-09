@@ -1,0 +1,18 @@
+===> Find Cuda
+===> Building model
+===> Do Resume Or Skip
+ -- Start eval --
+Traceback (most recent call last):
+  File "H:\PROJECT\PYTHON\FGVSR\test_compare.py", line 90, in <module>
+    test_train_set()
+  File "H:\PROJECT\PYTHON\FGVSR\test_compare.py", line 71, in test_train_set
+    outA = modelA(inputA, ID)
+  File "H:\APP\Anaconda\envs\a\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "H:\PROJECT\PYTHON\FGVSR\rootmodel\SPVSR_New.py", line 323, in forward
+    aligned_feat.append(self.pcd_align(feat_ID, nbr_feat_l, ref_feat_l))
+  File "H:\APP\Anaconda\envs\a\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "H:\PROJECT\PYTHON\FGVSR\rootmodel\SPVSR_New.py", line 109, in forward
+    offset = torch.cat([nbr_feat_l[i - 1], ref_feat_l[i - 1]], dim=1)
+RuntimeError: Sizes of tensors must match except in dimension 1. Expected size 45 but got size 36 for tensor number 1 in the list.

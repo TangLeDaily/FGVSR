@@ -1,0 +1,18 @@
+{
+    "os": "Windows-10-10.0.19043-SP0",
+    "python": "3.9.7",
+    "heartbeatAt": "2022-01-13T10:32:57.808616",
+    "startedAt": "2022-01-13T10:32:54.970970",
+    "docker": null,
+    "gpu": "NVIDIA GeForce RTX 3070",
+    "gpu_count": 1,
+    "cpu_count": 16,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "H:\\PROJECT\\PYTHON\\FGVSR\\test_compare.py",
+    "codePath": "test_compare.py",
+    "host": "DESKTOP-DSPHN8S",
+    "username": "TLPC",
+    "executable": "H:\\APP\\Anaconda\\envs\\a\\python.exe"
+}

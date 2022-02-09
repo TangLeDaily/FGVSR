@@ -1,0 +1,37 @@
+===> Find Cuda
+===> Building model
+===> Do Resume Or Skip
+ -- Start eval --
+['00000000.png', '00000001.png', '00000002.png', '00000003.png', '00000004.png', '00000005.png', '00000006.png', '00000007.png', '00000008.png', '00000009.png', '00000010.png', '00000011.png', '00000012.png', '00000013.png', '00000014.png', '00000015.png', '00000016.png', '00000017.png', '00000018.png', '00000019.png', '00000020.png', '00000021.png', '00000022.png', '00000023.png', '00000024.png', '00000025.png', '00000026.png', '00000027.png', '00000028.png', '00000029.png', '00000030.png', '00000031.png', '00000032.png', '00000033.png', '00000034.png', '00000035.png', '00000036.png', '00000037.png', '00000038.png', '00000039.png', '00000040.png', '00000041.png', '00000042.png', '00000043.png', '00000044.png', '00000045.png', '00000046.png', '00000047.png', '00000048.png', '00000049.png', '00000050.png', '00000051.png', '00000052.png', '00000053.png', '00000054.png', '00000055.png', '00000056.png', '00000057.png', '00000058.png', '00000059.png', '00000060.png', '00000061.png', '00000062.png', '00000063.png', '00000064.png', '00000065.png', '00000066.png', '00000067.png', '00000068.png', '00000069.png', '00000070.png', '00000071.png', '00000072.png', '00000073.png', '00000074.png', '00000075.png', '00000076.png', '00000077.png', '00000078.png', '00000079.png', '00000080.png', '00000081.png', '00000082.png', '00000083.png', '00000084.png', '00000085.png', '00000086.png', '00000087.png', '00000088.png', '00000089.png', '00000090.png', '00000091.png', '00000092.png', '00000093.png', '00000094.png', '00000095.png', '00000096.png', '00000097.png', '00000098.png', '00000099.png']
+Traceback (most recent call last):
+  File "H:\APP\Anaconda\envs\a\lib\multiprocessing\queues.py", line 247, in _feed
+    send_bytes(obj)
+  File "H:\APP\Anaconda\envs\a\lib\multiprocessing\connection.py", line 205, in send_bytes
+    self._send_bytes(m[offset:offset + size])
+Traceback (most recent call last):
+  File "H:\APP\Anaconda\envs\a\lib\multiprocessing\queues.py", line 247, in _feed
+    send_bytes(obj)
+  File "H:\APP\Anaconda\envs\a\lib\multiprocessing\connection.py", line 205, in send_bytes
+    self._send_bytes(m[offset:offset + size])
+  File "H:\APP\Anaconda\envs\a\lib\multiprocessing\connection.py", line 285, in _send_bytes
+    ov, err = _winapi.WriteFile(self._handle, buf, overlapped=True)
+BrokenPipeError: [WinError 232] 管道正在被关闭。
+  File "H:\APP\Anaconda\envs\a\lib\multiprocessing\connection.py", line 285, in _send_bytes
+    ov, err = _winapi.WriteFile(self._handle, buf, overlapped=True)
+BrokenPipeError: [WinError 232] 管道正在被关闭。
+Traceback (most recent call last):
+  File "H:\PROJECT\PYTHON\FGVSR\test_compare.py", line 90, in <module>
+    test_train_set()
+  File "H:\PROJECT\PYTHON\FGVSR\test_compare.py", line 71, in test_train_set
+    outA = modelA(inputA, ID)
+  File "H:\APP\Anaconda\envs\a\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "H:\PROJECT\PYTHON\FGVSR\rootmodel\SPVSR_G.py", line 334, in forward
+    out = self.relu(self.head(x))
+  File "H:\APP\Anaconda\envs\a\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "H:\APP\Anaconda\envs\a\lib\site-packages\torch\nn\modules\conv.py", line 446, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "H:\APP\Anaconda\envs\a\lib\site-packages\torch\nn\modules\conv.py", line 442, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+KeyboardInterrupt

@@ -1,0 +1,20 @@
+===> Find Cuda
+===> Building model
+===> Do Resume Or Skip
+ -- Start eval --
+Traceback (most recent call last):
+  File "H:\PROJECT\PYTHON\FGVSR\test_compare.py", line 84, in <module>
+    test_train_set()
+  File "H:\PROJECT\PYTHON\FGVSR\test_compare.py", line 69, in test_train_set
+    outA = modelA(inputA, ID)
+  File "H:\APP\Anaconda\envs\a\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "H:\PROJECT\PYTHON\FGVSR\rootmodel\SPVSR_G.py", line 333, in forward
+    out = self.SR(out, feat_ID)
+  File "H:\APP\Anaconda\envs\a\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "H:\PROJECT\PYTHON\FGVSR\rootmodel\SPVSR_G.py", line 312, in forward
+    self.save_feature(feat_ID, out)
+  File "H:\PROJECT\PYTHON\FGVSR\rootmodel\SPVSR_G.py", line 308, in save_feature
+    numpy.save("../data/feature/" + feat_ID + ".npy", np_feat)
+TypeError: can only concatenate str (not "tuple") to str

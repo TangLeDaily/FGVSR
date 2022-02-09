@@ -1,0 +1,5 @@
+===> Find Cuda
+===> Building model
+===> Do Resume Or Skip
+ -- Start eval --
+--->This---Our-Avg--PSNR: 20.0443 dB--EDVR-Avg--PSNR: 19.9349 dB--ROOT-Avg--PSNR: 18.5554 dB

@@ -1,0 +1,92 @@
+===> Find Cuda
+===> Building model
+===> Do Resume Or Skip
+ -- Start eval --
+i:0  ia:('test_G',)
+i:1  ia:('test_G',)
+i:2  ia:('test_G',)
+i:3  ia:('test_G',)
+i:4  ia:('test_G',)
+i:5  ia:('test_G',)
+i:6  ia:('test_G',)
+i:7  ia:('test_G',)
+i:8  ia:('test_G',)
+i:9  ia:('test_G',)
+i:10  ia:('test_G',)
+i:11  ia:('test_G',)
+i:12  ia:('test_G',)
+i:13  ia:('test_G',)
+i:14  ia:('test_G',)
+i:15  ia:('test_G',)
+i:16  ia:('test_G',)
+i:17  ia:('test_G',)
+i:18  ia:('test_G',)
+i:19  ia:('test_G',)
+i:20  ia:('test_G',)
+i:21  ia:('test_G',)
+i:22  ia:('test_G',)
+i:23  ia:('test_G',)
+i:24  ia:('test_G',)
+i:25  ia:('test_G',)
+i:26  ia:('test_G',)
+i:27  ia:('test_G',)
+i:28  ia:('test_G',)
+i:29  ia:('test_G',)
+i:30  ia:('test_G',)
+i:31  ia:('test_G',)
+i:32  ia:('test_G',)
+i:33  ia:('test_G',)
+i:34  ia:('test_G',)
+i:35  ia:('test_G',)
+i:36  ia:('test_G',)
+i:37  ia:('test_G',)
+i:38  ia:('test_G',)
+i:39  ia:('test_G',)
+i:40  ia:('test_G',)
+i:41  ia:('test_G',)
+i:42  ia:('test_G',)
+i:43  ia:('test_G',)
+i:44  ia:('test_G',)
+i:45  ia:('test_G',)
+i:46  ia:('test_G',)
+i:47  ia:('test_G',)
+i:48  ia:('test_G',)
+i:49  ia:('test_G',)
+i:50  ia:('test_G',)
+i:51  ia:('test_G',)
+i:52  ia:('test_G',)
+i:53  ia:('test_G',)
+i:54  ia:('test_G',)
+i:55  ia:('test_G',)
+i:56  ia:('test_G',)
+i:57  ia:('test_G',)
+i:58  ia:('test_G',)
+i:59  ia:('test_G',)
+i:60  ia:('test_G',)
+i:61  ia:('test_G',)
+i:62  ia:('test_G',)
+i:63  ia:('test_G',)
+Traceback (most recent call last):
+  File "H:\APP\Anaconda\envs\a\lib\multiprocessing\queues.py", line 247, in _feed
+    send_bytes(obj)
+  File "H:\APP\Anaconda\envs\a\lib\multiprocessing\connection.py", line 205, in send_bytes
+    self._send_bytes(m[offset:offset + size])
+  File "H:\APP\Anaconda\envs\a\lib\multiprocessing\connection.py", line 285, in _send_bytes
+    ov, err = _winapi.WriteFile(self._handle, buf, overlapped=True)
+BrokenPipeError: [WinError 232] 管道正在被关闭。
+Traceback (most recent call last):
+  File "H:\PROJECT\PYTHON\FGVSR\test_compare.py", line 91, in <module>
+    test_train_set()
+  File "H:\PROJECT\PYTHON\FGVSR\test_compare.py", line 71, in test_train_set
+    outA = modelA(inputA, ID)
+  File "H:\APP\Anaconda\envs\a\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "H:\PROJECT\PYTHON\FGVSR\rootmodel\SPVSR_G.py", line 336, in forward
+    out = self.SR(out, feat_ID)
+  File "H:\APP\Anaconda\envs\a\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "H:\PROJECT\PYTHON\FGVSR\rootmodel\SPVSR_G.py", line 315, in forward
+    self.save_feature(feat_ID, out)
+  File "H:\PROJECT\PYTHON\FGVSR\rootmodel\SPVSR_G.py", line 309, in save_feature
+    np_feat = feat.cpu().detach().numpy()
+KeyboardInterrupt

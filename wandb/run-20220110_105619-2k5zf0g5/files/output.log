@@ -1,0 +1,11 @@
+Namespace(train_root_path='datasets/train/', test_root_path='datasets/test/REDS4/', cuda=True, model_mark=0, resume='', start_epoch=0, batchSize=2, nEpochs=10000, miniEpochs=0, lr=0.0001, threads=8, scale=4, loss=0)
+===> Find Cuda
+===> Building model
+Traceback (most recent call last):
+  File "H:\PROJECT\PYTHON\FGVSR\train_sr.py", line 187, in <module>
+    main()
+  File "H:\PROJECT\PYTHON\FGVSR\train_sr.py", line 66, in main
+    model = EDVR()
+  File "H:\PROJECT\PYTHON\FGVSR\rootmodel\edvr.py", line 289, in __init__
+    self.fusion = TSAFusion(num_feat=num_feat, num_frame=num_frame, center_frame_idx=0)
+TypeError: __init__() got an unexpected keyword argument 'center_frame_idx'

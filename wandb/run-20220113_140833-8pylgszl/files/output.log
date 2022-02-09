@@ -1,0 +1,23 @@
+===> Find Cuda
+===> Building model
+===> Do Resume Or Skip
+Traceback (most recent call last):
+  File "H:\PROJECT\PYTHON\FGVSR\test_compare.py", line 84, in <module>
+    test_train_set()
+  File "H:\PROJECT\PYTHON\FGVSR\test_compare.py", line 43, in test_train_set
+    checkpointA = torch.load("checkpoints/test/model_videoID_TOTA_epoch_34.pth")
+  File "H:\APP\Anaconda\envs\a\lib\site-packages\torch\serialization.py", line 607, in load
+    return _load(opened_zipfile, map_location, pickle_module, **pickle_load_args)
+  File "H:\APP\Anaconda\envs\a\lib\site-packages\torch\serialization.py", line 882, in _load
+    result = unpickler.load()
+  File "H:\APP\Anaconda\envs\a\lib\site-packages\torch\serialization.py", line 857, in persistent_load
+    load_tensor(data_type, size, key, _maybe_decode_ascii(location))
+  File "H:\APP\Anaconda\envs\a\lib\site-packages\torch\serialization.py", line 846, in load_tensor
+    loaded_storages[key] = restore_location(storage, location)
+  File "H:\APP\Anaconda\envs\a\lib\site-packages\torch\serialization.py", line 175, in default_restore_location
+    result = fn(storage, location)
+  File "H:\APP\Anaconda\envs\a\lib\site-packages\torch\serialization.py", line 151, in _cuda_deserialize
+    device = validate_cuda_device(location)
+  File "H:\APP\Anaconda\envs\a\lib\site-packages\torch\serialization.py", line 142, in validate_cuda_device
+    raise RuntimeError('Attempting to deserialize object on CUDA device '
+RuntimeError: Attempting to deserialize object on CUDA device 2 but torch.cuda.device_count() is 1. Please use torch.load with map_location to map your storages to an existing device.

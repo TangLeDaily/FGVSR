@@ -1,0 +1,723 @@
+2022-01-13 18:03:16,635 INFO    MainThread:12096 [internal.py:wandb_internal():87] W&B internal server running at pid: 12096, started at: 2022-01-13 18:03:16.634449
+2022-01-13 18:03:16,636 INFO    WriterThread:12096 [datastore.py:open_for_write():77] open: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\run-16bwrche.wandb
+2022-01-13 18:03:16,636 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: check_version
+2022-01-13 18:03:16,638 DEBUG   SenderThread:12096 [sender.py:send():238] send: header
+2022-01-13 18:03:16,638 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: check_version
+2022-01-13 18:03:18,348 DEBUG   SenderThread:12096 [sender.py:send():238] send: run
+2022-01-13 18:03:18,719 INFO    SenderThread:12096 [dir_watcher.py:__init__():169] watching files in: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files
+2022-01-13 18:03:18,719 INFO    SenderThread:12096 [sender.py:_start_run_threads():825] run started: 16bwrche with start time 1642068195
+2022-01-13 18:03:18,719 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:18,720 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: run_start
+2022-01-13 18:03:18,720 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:18,745 DEBUG   HandlerThread:12096 [meta.py:__init__():40] meta init
+2022-01-13 18:03:18,745 DEBUG   HandlerThread:12096 [meta.py:__init__():54] meta init done
+2022-01-13 18:03:18,745 DEBUG   HandlerThread:12096 [meta.py:probe():214] probe
+2022-01-13 18:03:18,784 DEBUG   HandlerThread:12096 [git.py:repo():33] git repository is invalid
+2022-01-13 18:03:18,784 DEBUG   HandlerThread:12096 [meta.py:_save_pip():58] save pip
+2022-01-13 18:03:18,807 DEBUG   HandlerThread:12096 [meta.py:_save_pip():72] save pip done
+2022-01-13 18:03:18,807 DEBUG   HandlerThread:12096 [meta.py:_save_conda():79] save conda
+2022-01-13 18:03:19,720 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_created():217] file/dir created: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\requirements.txt
+2022-01-13 18:03:19,721 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_created():217] file/dir created: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:19,721 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_created():217] file/dir created: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\conda-environment.yaml
+2022-01-13 18:03:21,064 DEBUG   HandlerThread:12096 [meta.py:_save_conda():89] save conda done
+2022-01-13 18:03:21,065 DEBUG   HandlerThread:12096 [meta.py:probe():252] probe done
+2022-01-13 18:03:21,069 DEBUG   SenderThread:12096 [sender.py:send():238] send: files
+2022-01-13 18:03:21,069 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-metadata.json with policy now
+2022-01-13 18:03:21,074 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: stop_status
+2022-01-13 18:03:21,074 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: stop_status
+2022-01-13 18:03:21,722 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\conda-environment.yaml
+2022-01-13 18:03:21,722 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_created():217] file/dir created: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\output.log
+2022-01-13 18:03:21,722 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_created():217] file/dir created: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-metadata.json
+2022-01-13 18:03:21,936 INFO    Thread-15 :12096 [upload_job.py:push():137] Uploaded file C:\Users\TLPC\AppData\Local\Temp\tmpzbzyo10owandb\25rk841l-wandb-metadata.json
+2022-01-13 18:03:23,723 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\output.log
+2022-01-13 18:03:28,934 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:28,935 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:28,936 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:29,728 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:29,733 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:29,733 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:29,734 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:30,522 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:30,523 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:30,523 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:30,729 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:31,313 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:31,314 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:31,315 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:31,729 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:32,099 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:32,100 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:32,100 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:32,730 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:32,891 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:32,892 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:32,892 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:33,683 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:33,683 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:33,684 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:33,731 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:34,471 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:34,471 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:34,471 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:34,731 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:35,253 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:35,254 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:35,254 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:35,732 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:36,054 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:36,054 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:36,056 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:36,402 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: stop_status
+2022-01-13 18:03:36,402 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: stop_status
+2022-01-13 18:03:36,733 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:36,844 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:36,844 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:36,845 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:37,636 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:37,636 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:37,637 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:37,734 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:38,425 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:38,425 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:38,427 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:38,734 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:39,210 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:39,210 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:39,211 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:39,735 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:39,995 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:39,995 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:39,995 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:40,736 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:40,785 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:40,785 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:40,786 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:41,580 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:41,580 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:41,581 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:41,737 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:42,364 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:42,364 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:42,365 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:42,737 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:43,149 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:43,149 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:43,151 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:43,738 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:43,933 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:43,933 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:43,934 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:44,726 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:44,726 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:44,727 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:44,739 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:45,510 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:45,511 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:45,512 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:45,740 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:46,293 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:46,293 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:46,294 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:46,740 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:47,081 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:47,081 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:47,082 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:47,745 DEBUG   SenderThread:12096 [sender.py:send():238] send: stats
+2022-01-13 18:03:47,747 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:47,877 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:47,878 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:47,878 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:48,665 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:48,665 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:48,666 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:48,747 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:49,451 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:49,452 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:49,452 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:49,748 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:50,234 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:50,234 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:50,235 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:50,749 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:51,036 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:51,036 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:51,037 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:51,747 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: stop_status
+2022-01-13 18:03:51,747 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: stop_status
+2022-01-13 18:03:51,750 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:52,088 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:52,088 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:52,088 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:52,610 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:52,610 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:52,612 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:52,750 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:53,394 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:53,394 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:53,394 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:53,750 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:54,178 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:54,178 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:54,179 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:54,751 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:54,965 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:54,966 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:54,967 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:55,751 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:55,752 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:55,752 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:55,752 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:56,546 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:56,547 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:56,547 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:56,753 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:57,333 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:57,333 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:57,334 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:57,753 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:58,129 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:58,129 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:58,130 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:58,754 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:03:58,912 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:58,912 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:58,913 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:59,705 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:03:59,706 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:03:59,707 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:03:59,756 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:00,492 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:00,493 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:00,493 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:00,756 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:01,276 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:01,276 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:01,276 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:01,757 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:02,059 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:02,060 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:02,061 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:02,758 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:02,849 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:02,850 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:02,850 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:03,637 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:03,637 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:03,638 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:03,759 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:04,428 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:04,429 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:04,430 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:04,759 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:05,215 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:05,215 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:05,215 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:05,760 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:06,010 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:06,011 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:06,011 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:06,761 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:06,805 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:06,805 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:06,806 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:07,088 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: stop_status
+2022-01-13 18:04:07,089 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: stop_status
+2022-01-13 18:04:07,593 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:07,593 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:07,594 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:07,762 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:08,396 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:08,396 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:08,397 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:08,763 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:09,195 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:09,195 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:09,197 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:09,763 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:09,990 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:09,991 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:09,991 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:10,764 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:10,844 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:10,844 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:10,845 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:11,643 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:11,644 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:11,645 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:11,764 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:12,430 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:12,430 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:12,431 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:12,766 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:13,229 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:13,230 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:13,230 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:13,766 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:14,034 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:14,035 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:14,036 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:14,767 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:14,828 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:14,828 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:14,828 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:15,621 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:15,622 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:15,622 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:15,767 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:16,437 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:16,438 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:16,438 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:16,768 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:17,256 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:17,256 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:17,257 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:17,769 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:18,042 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:18,043 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:18,043 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:18,714 DEBUG   SenderThread:12096 [sender.py:send():238] send: stats
+2022-01-13 18:04:18,769 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:18,848 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:18,848 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:18,849 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:19,673 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:19,674 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:19,674 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:19,770 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:20,501 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:20,502 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:20,502 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:20,773 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:21,332 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:21,332 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:21,333 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:21,773 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:22,232 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:22,233 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:22,233 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:22,397 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: stop_status
+2022-01-13 18:04:22,397 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: stop_status
+2022-01-13 18:04:22,774 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:23,078 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:23,078 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:23,079 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:23,776 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:23,927 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:23,927 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:23,928 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:24,746 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:24,746 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:24,747 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:24,776 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:25,579 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:25,580 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:25,580 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:25,777 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:26,414 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:26,414 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:26,415 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:26,778 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:27,246 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:27,247 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:27,247 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:27,779 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:28,064 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:28,064 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:28,065 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:28,779 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:28,905 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:28,905 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:28,906 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:29,725 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:29,725 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:29,725 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:29,780 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:30,551 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:30,551 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:30,551 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:30,780 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:31,352 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:31,353 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:31,353 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:31,781 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:32,187 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:32,187 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:32,187 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:32,782 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:33,025 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:33,026 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:33,026 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:33,783 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:33,851 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:33,851 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:33,852 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:34,679 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:34,679 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:34,680 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:34,784 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:35,518 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:35,518 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:35,520 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:35,784 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:36,338 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:36,338 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:36,339 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:36,785 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:37,142 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:37,142 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:37,142 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:37,758 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: stop_status
+2022-01-13 18:04:37,758 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: stop_status
+2022-01-13 18:04:37,786 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:38,068 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:38,068 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:38,068 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:38,784 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:38,785 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:38,785 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:38,787 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:39,629 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:39,630 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:39,630 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:39,788 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:40,439 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:40,439 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:40,440 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:40,789 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:41,254 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:41,254 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:41,255 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:41,790 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:42,140 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:42,140 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:42,141 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:42,790 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:42,997 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:42,997 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:42,998 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:43,791 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:43,802 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:43,802 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:43,803 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:44,634 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:44,635 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:44,635 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:44,791 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:45,434 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:45,435 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:45,435 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:45,792 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:46,279 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:46,279 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:46,281 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:46,793 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:47,071 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:47,071 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:47,072 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:47,794 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:47,895 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:47,896 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:47,896 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:48,741 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:48,741 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:48,742 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:48,795 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:49,550 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:49,550 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:49,551 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:49,673 DEBUG   SenderThread:12096 [sender.py:send():238] send: stats
+2022-01-13 18:04:49,796 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:50,379 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:50,379 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:50,380 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:50,796 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:51,181 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:51,181 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:51,182 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:51,797 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:52,018 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:52,019 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:52,019 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:52,798 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:52,823 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:52,823 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:52,824 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:53,069 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: stop_status
+2022-01-13 18:04:53,069 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: stop_status
+2022-01-13 18:04:53,656 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:53,656 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:53,657 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:53,798 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:54,465 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:54,465 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:54,466 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:54,799 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:55,362 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:55,362 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:55,363 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:55,800 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:56,252 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:56,252 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:56,253 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:56,801 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:57,124 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:57,124 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:57,126 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:57,801 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:58,039 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:58,039 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:58,040 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:58,802 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:04:58,936 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:58,936 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:58,937 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:59,746 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:04:59,746 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:04:59,746 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:04:59,803 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:00,579 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:00,579 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:00,580 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:00,804 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:01,385 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:01,385 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:01,386 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:01,804 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:02,221 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:02,221 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:02,222 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:02,805 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:03,034 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:03,034 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:03,035 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:03,806 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:03,865 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:03,865 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:03,866 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:04,679 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:04,679 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:04,680 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:04,807 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:05,505 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:05,505 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:05,505 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:05,808 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:06,363 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:06,363 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:06,363 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:06,809 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:07,180 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:07,180 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:07,181 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:07,810 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:08,013 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:08,013 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:08,014 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:08,404 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: stop_status
+2022-01-13 18:05:08,404 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: stop_status
+2022-01-13 18:05:08,811 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:08,844 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:08,844 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:08,845 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:09,685 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:09,686 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:09,686 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:09,811 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:10,481 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:10,482 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:10,482 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:10,811 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:11,298 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:11,298 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:11,299 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:11,812 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:12,127 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:12,127 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:12,128 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:12,813 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:12,958 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:12,958 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:12,959 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:13,768 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:13,768 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:13,769 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:13,813 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:14,592 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:14,592 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:14,592 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:14,815 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:15,427 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:15,427 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:15,427 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:15,815 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:16,287 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:16,287 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:16,288 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:16,816 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:17,097 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:17,097 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:17,098 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:17,816 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:17,888 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:17,889 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:17,890 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:18,679 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:18,679 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:18,680 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:18,817 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:19,488 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:19,488 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:19,489 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:19,818 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:20,276 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:20,276 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:20,276 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:20,646 DEBUG   SenderThread:12096 [sender.py:send():238] send: stats
+2022-01-13 18:05:20,819 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:21,074 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:21,075 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:21,075 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:21,819 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:21,861 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:21,861 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:21,862 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:22,648 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:22,648 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:22,649 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:22,820 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:23,441 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:23,442 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:23,442 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:23,727 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: stop_status
+2022-01-13 18:05:23,728 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: stop_status
+2022-01-13 18:05:23,821 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:24,271 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:24,272 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:24,272 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:24,822 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:25,067 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:25,067 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:25,068 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:25,822 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:25,860 DEBUG   SenderThread:12096 [sender.py:send():238] send: history
+2022-01-13 18:05:25,860 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:25,861 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:25,900 WARNING MainThread:12096 [internal.py:wandb_internal():146] Internal process interrupt: 1
+2022-01-13 18:05:26,846 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:26,944 DEBUG   SenderThread:12096 [sender.py:send():238] send: telemetry
+2022-01-13 18:05:26,944 DEBUG   SenderThread:12096 [sender.py:send():238] send: exit
+2022-01-13 18:05:26,945 INFO    SenderThread:12096 [sender.py:send_exit():370] handling exit code: 255
+2022-01-13 18:05:26,945 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: poll_exit
+2022-01-13 18:05:26,945 INFO    SenderThread:12096 [sender.py:send_exit():372] handling runtime: 128
+2022-01-13 18:05:26,945 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:26,945 INFO    SenderThread:12096 [sender.py:send_exit():382] send defer
+2022-01-13 18:05:26,946 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: poll_exit
+2022-01-13 18:05:26,946 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: defer
+2022-01-13 18:05:26,946 INFO    HandlerThread:12096 [handler.py:handle_request_defer():147] handle defer: 0
+2022-01-13 18:05:26,946 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: defer
+2022-01-13 18:05:26,946 INFO    SenderThread:12096 [sender.py:send_request_defer():391] handle sender defer: 0
+2022-01-13 18:05:26,946 INFO    SenderThread:12096 [sender.py:transition_state():395] send defer: 1
+2022-01-13 18:05:26,946 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: defer
+2022-01-13 18:05:26,946 INFO    HandlerThread:12096 [handler.py:handle_request_defer():147] handle defer: 1
+2022-01-13 18:05:27,000 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: defer
+2022-01-13 18:05:27,000 INFO    SenderThread:12096 [sender.py:send_request_defer():391] handle sender defer: 1
+2022-01-13 18:05:27,000 INFO    SenderThread:12096 [sender.py:transition_state():395] send defer: 2
+2022-01-13 18:05:27,000 DEBUG   SenderThread:12096 [sender.py:send():238] send: stats
+2022-01-13 18:05:27,001 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: defer
+2022-01-13 18:05:27,001 INFO    HandlerThread:12096 [handler.py:handle_request_defer():147] handle defer: 2
+2022-01-13 18:05:27,001 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: defer
+2022-01-13 18:05:27,001 INFO    SenderThread:12096 [sender.py:send_request_defer():391] handle sender defer: 2
+2022-01-13 18:05:27,001 INFO    SenderThread:12096 [sender.py:transition_state():395] send defer: 3
+2022-01-13 18:05:27,001 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: defer
+2022-01-13 18:05:27,001 INFO    HandlerThread:12096 [handler.py:handle_request_defer():147] handle defer: 3
+2022-01-13 18:05:27,001 DEBUG   SenderThread:12096 [sender.py:send():238] send: summary
+2022-01-13 18:05:27,002 INFO    SenderThread:12096 [sender.py:_save_file():960] saving file wandb-summary.json with policy end
+2022-01-13 18:05:27,002 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: defer
+2022-01-13 18:05:27,002 INFO    SenderThread:12096 [sender.py:send_request_defer():391] handle sender defer: 3
+2022-01-13 18:05:27,002 INFO    SenderThread:12096 [sender.py:transition_state():395] send defer: 4
+2022-01-13 18:05:27,002 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: defer
+2022-01-13 18:05:27,002 INFO    HandlerThread:12096 [handler.py:handle_request_defer():147] handle defer: 4
+2022-01-13 18:05:27,002 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: defer
+2022-01-13 18:05:27,002 INFO    SenderThread:12096 [sender.py:send_request_defer():391] handle sender defer: 4
+2022-01-13 18:05:27,046 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: poll_exit
+2022-01-13 18:05:27,350 INFO    SenderThread:12096 [sender.py:transition_state():395] send defer: 5
+2022-01-13 18:05:27,350 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: poll_exit
+2022-01-13 18:05:27,351 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: defer
+2022-01-13 18:05:27,351 INFO    HandlerThread:12096 [handler.py:handle_request_defer():147] handle defer: 5
+2022-01-13 18:05:27,351 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: defer
+2022-01-13 18:05:27,351 INFO    SenderThread:12096 [sender.py:send_request_defer():391] handle sender defer: 5
+2022-01-13 18:05:27,351 INFO    SenderThread:12096 [dir_watcher.py:finish():283] shutting down directory watcher
+2022-01-13 18:05:27,452 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: poll_exit
+2022-01-13 18:05:27,848 INFO    Thread-12 :12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\output.log
+2022-01-13 18:05:27,848 INFO    SenderThread:12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\config.yaml
+2022-01-13 18:05:27,849 INFO    SenderThread:12096 [dir_watcher.py:_on_file_modified():230] file/dir modified: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:27,849 INFO    SenderThread:12096 [dir_watcher.py:finish():313] scan: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files
+2022-01-13 18:05:27,849 INFO    SenderThread:12096 [dir_watcher.py:finish():327] scan save: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\conda-environment.yaml conda-environment.yaml
+2022-01-13 18:05:27,849 INFO    SenderThread:12096 [dir_watcher.py:finish():327] scan save: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\config.yaml config.yaml
+2022-01-13 18:05:27,850 INFO    SenderThread:12096 [dir_watcher.py:finish():327] scan save: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\output.log output.log
+2022-01-13 18:05:27,853 INFO    SenderThread:12096 [dir_watcher.py:finish():327] scan save: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\requirements.txt requirements.txt
+2022-01-13 18:05:27,856 INFO    SenderThread:12096 [dir_watcher.py:finish():327] scan save: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-metadata.json wandb-metadata.json
+2022-01-13 18:05:27,856 INFO    SenderThread:12096 [dir_watcher.py:finish():327] scan save: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json wandb-summary.json
+2022-01-13 18:05:27,858 INFO    SenderThread:12096 [sender.py:transition_state():395] send defer: 6
+2022-01-13 18:05:27,858 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: poll_exit
+2022-01-13 18:05:27,860 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: defer
+2022-01-13 18:05:27,860 INFO    HandlerThread:12096 [handler.py:handle_request_defer():147] handle defer: 6
+2022-01-13 18:05:27,861 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: defer
+2022-01-13 18:05:27,861 INFO    SenderThread:12096 [sender.py:send_request_defer():391] handle sender defer: 6
+2022-01-13 18:05:27,861 INFO    SenderThread:12096 [file_pusher.py:finish():177] shutting down file pusher
+2022-01-13 18:05:27,960 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: poll_exit
+2022-01-13 18:05:27,960 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: poll_exit
+2022-01-13 18:05:28,061 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: poll_exit
+2022-01-13 18:05:28,061 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: poll_exit
+2022-01-13 18:05:28,163 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: poll_exit
+2022-01-13 18:05:28,163 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: poll_exit
+2022-01-13 18:05:28,264 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: poll_exit
+2022-01-13 18:05:28,264 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: poll_exit
+2022-01-13 18:05:28,366 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: poll_exit
+2022-01-13 18:05:28,366 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: poll_exit
+2022-01-13 18:05:28,467 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: poll_exit
+2022-01-13 18:05:28,467 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: poll_exit
+2022-01-13 18:05:28,569 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: poll_exit
+2022-01-13 18:05:28,569 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: poll_exit
+2022-01-13 18:05:28,652 INFO    Thread-19 :12096 [upload_job.py:push():137] Uploaded file H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\requirements.txt
+2022-01-13 18:05:28,661 INFO    Thread-16 :12096 [upload_job.py:push():137] Uploaded file H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\conda-environment.yaml
+2022-01-13 18:05:28,670 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: poll_exit
+2022-01-13 18:05:28,670 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: poll_exit
+2022-01-13 18:05:28,675 INFO    Thread-18 :12096 [upload_job.py:push():137] Uploaded file H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\output.log
+2022-01-13 18:05:28,697 INFO    Thread-17 :12096 [upload_job.py:push():137] Uploaded file H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\config.yaml
+2022-01-13 18:05:28,698 INFO    Thread-20 :12096 [upload_job.py:push():137] Uploaded file H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\files\wandb-summary.json
+2022-01-13 18:05:28,771 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: poll_exit
+2022-01-13 18:05:28,771 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: poll_exit
+2022-01-13 18:05:28,872 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: poll_exit
+2022-01-13 18:05:28,872 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: poll_exit
+2022-01-13 18:05:28,900 INFO    Thread-11 :12096 [sender.py:transition_state():395] send defer: 7
+2022-01-13 18:05:28,901 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: defer
+2022-01-13 18:05:28,901 INFO    HandlerThread:12096 [handler.py:handle_request_defer():147] handle defer: 7
+2022-01-13 18:05:28,901 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: defer
+2022-01-13 18:05:28,901 INFO    SenderThread:12096 [sender.py:send_request_defer():391] handle sender defer: 7
+2022-01-13 18:05:28,973 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: poll_exit
+2022-01-13 18:05:29,149 INFO    SenderThread:12096 [sender.py:transition_state():395] send defer: 8
+2022-01-13 18:05:29,149 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: poll_exit
+2022-01-13 18:05:29,150 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: defer
+2022-01-13 18:05:29,150 INFO    HandlerThread:12096 [handler.py:handle_request_defer():147] handle defer: 8
+2022-01-13 18:05:29,150 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: defer
+2022-01-13 18:05:29,150 INFO    SenderThread:12096 [sender.py:send_request_defer():391] handle sender defer: 8
+2022-01-13 18:05:29,150 INFO    SenderThread:12096 [sender.py:transition_state():395] send defer: 9
+2022-01-13 18:05:29,150 DEBUG   SenderThread:12096 [sender.py:send():238] send: final
+2022-01-13 18:05:29,150 DEBUG   SenderThread:12096 [sender.py:send():238] send: footer
+2022-01-13 18:05:29,150 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: defer
+2022-01-13 18:05:29,150 INFO    HandlerThread:12096 [handler.py:handle_request_defer():147] handle defer: 9
+2022-01-13 18:05:29,151 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: defer
+2022-01-13 18:05:29,151 INFO    SenderThread:12096 [sender.py:send_request_defer():391] handle sender defer: 9
+2022-01-13 18:05:29,250 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: poll_exit
+2022-01-13 18:05:29,250 DEBUG   SenderThread:12096 [sender.py:send_request():252] send_request: poll_exit
+2022-01-13 18:05:29,250 INFO    SenderThread:12096 [file_pusher.py:join():182] waiting for file pusher
+2022-01-13 18:05:29,857 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: get_summary
+2022-01-13 18:05:29,858 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: sampled_history
+2022-01-13 18:05:29,860 DEBUG   HandlerThread:12096 [handler.py:handle_request():130] handle_request: shutdown
+2022-01-13 18:05:29,860 INFO    HandlerThread:12096 [handler.py:finish():731] shutting down handler
+2022-01-13 18:05:30,150 INFO    WriterThread:12096 [datastore.py:close():281] close: H:\PROJECT\PYTHON\FGVSR\wandb\run-20220113_180315-16bwrche\run-16bwrche.wandb
+2022-01-13 18:05:30,856 INFO    SenderThread:12096 [sender.py:finish():1091] shutting down sender
+2022-01-13 18:05:30,856 INFO    SenderThread:12096 [file_pusher.py:finish():177] shutting down file pusher
+2022-01-13 18:05:30,856 INFO    SenderThread:12096 [file_pusher.py:join():182] waiting for file pusher
+2022-01-13 18:05:30,858 INFO    MainThread:12096 [internal.py:handle_exit():77] Internal process exited

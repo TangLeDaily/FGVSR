@@ -1,0 +1,18 @@
+{
+    "os": "Windows-10-10.0.19043-SP0",
+    "python": "3.9.7",
+    "heartbeatAt": "2022-02-07T05:51:28.481717",
+    "startedAt": "2022-02-07T05:51:26.331756",
+    "docker": null,
+    "gpu": "NVIDIA GeForce RTX 3070",
+    "gpu_count": 1,
+    "cpu_count": 16,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "H:\\PROJECT\\PYTHON\\FGVSR\\train_duibi_edvr_large.py",
+    "codePath": "train_duibi_edvr_large.py",
+    "host": "DESKTOP-DSPHN8S",
+    "username": "TLPC",
+    "executable": "H:\\APP\\Anaconda\\envs\\a\\python.exe"
+}

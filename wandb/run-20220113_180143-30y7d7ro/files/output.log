@@ -1,0 +1,21 @@
+===> Find Cuda
+===> Building model
+===> Do Resume Or Skip
+ -- Start eval --
+Traceback (most recent call last):
+  File "H:\APP\Anaconda\envs\a\lib\site-packages\PIL\Image.py", line 2835, in fromarray
+    mode, rawmode = _fromarray_typemap[typekey]
+KeyError: ((1, 1, 1, 1280), '|u1')
+The above exception was the direct cause of the following exception:
+Traceback (most recent call last):
+  File "H:\PROJECT\PYTHON\FGVSR\test_compare.py", line 90, in <module>
+    test_train_set()
+  File "H:\PROJECT\PYTHON\FGVSR\test_compare.py", line 73, in test_train_set
+    save_pic(outA, "A/", "{}.png".format(i))
+  File "H:\PROJECT\PYTHON\FGVSR\util.py", line 38, in save_pic
+    img = transform_convert(img_tensor)
+  File "H:\PROJECT\PYTHON\FGVSR\util.py", line 30, in transform_convert
+    img = Image.fromarray(img_tensor.astype('uint8')).squeeze()
+  File "H:\APP\Anaconda\envs\a\lib\site-packages\PIL\Image.py", line 2837, in fromarray
+    raise TypeError("Cannot handle this data type: %s, %s" % typekey) from e
+TypeError: Cannot handle this data type: (1, 1, 1, 1280), |u1

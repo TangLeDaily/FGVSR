@@ -1,0 +1,20 @@
+REDS4：
+our-1: 28.3813
+out-2；
+edvr: 28.3768
+
+Vid4：
+our-1： 23.7082
+edvr： 23.5378
+
+
+sota方法：
+DUF：cvpr2018（多帧）
+TDAN：cvpr2020（多帧）
+EDVR：cvpr2019 （多帧）
+RSDN：ECCV2020 （单帧单向序列）
+RRN： BMVC2020 （多帧）
+RLSP： 2019 (多帧+result)
+TGA： cvpr2020 （多帧但是核心三合一）
+MuCAN： ECCV2020（多帧） ---代码完成
+PFNL：ICCV2019（多帧）
