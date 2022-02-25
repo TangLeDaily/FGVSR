@@ -36,8 +36,8 @@ def rand():
 class RandomCrop(object):
     def __init__(self):
         self.scale = 4
-        self.output_sizeX = 64
-        self.output_sizeY = 64
+        self.output_sizeX = 32
+        self.output_sizeY = 32
     def __call__(self, sample):
         lrC, lrN, hr, ranintX, ranintY = sample['lrC'], sample['lrN'], sample['hr'], sample['ranintX'], sample['ranintY']
         h, w = lrC.shape[1],lrC.shape[2]

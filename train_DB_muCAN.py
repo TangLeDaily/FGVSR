@@ -13,28 +13,29 @@ from PIL import Image, ImageFilter
 from torchvision import transforms
 from torch.nn import functional as F
 
-from dataset_G_new import *
+from dataset_E import *
 from util import *
 from model import *
 from srresnet import *
-from rootmodel.SPVSR_G import *
+from rootmodel.muCAN import *
 
 parser = argparse.ArgumentParser(description="PyTorch Data_Pre")
 parser.add_argument("--train_root_path", default='datasets/train/', type=str, help="train root path")
 parser.add_argument("--test_root_path", default='datasets/test/REDS4/', type=str, help="test root path")
 parser.add_argument("--cuda", default=True, action="store_true", help="use cuda?")
+parser.add_argument("--test_cuda", default=True, type=bool, help="use cuda?")
 parser.add_argument("--frame", default=100, type=int, help="use cuda?")
 parser.add_argument("--model_mark", default=0, type=int, help="which model to train? 0:default")
 parser.add_argument("--resume", default='', type=str, help="path to latest checkpoint (default: none)")
 parser.add_argument("--start_epoch", default=0, type=int, help="manual epoch number (useful on restarts)")
-parser.add_argument("--batchSize", type=int, default=8, help="training batch size")  # default 16
+parser.add_argument("--batchSize", type=int, default=16, help="training batch size")  # default 16
 parser.add_argument("--nEpochs", type=int, default=10000, help="number of epochs to train for")
 parser.add_argument("--miniEpochs", type=int, default=0, help="number of epochs to train for")
-parser.add_argument("--lr", type=float, default=0.0001, help="Learning Rate. Default=1e-4")
+parser.add_argument("--lr", type=float, default=0.0004, help="Learning Rate. Default=1e-4")
 parser.add_argument("--threads", type=int, default=8, help="number of threads for data loader to use")
 parser.add_argument("--scale", type=int, default=4, help="Scale default:4x")
 parser.add_argument("--loss", type=int, default=0, help="the loss function, default")
-use_wandb = True
+use_wandb = False
 opt = parser.parse_args()
 min_avr_loss = 99999999
 save_flag = 0
@@ -45,7 +46,7 @@ out_nc = 3
 
 
 def get_yu(model):
-    kk = torch.load("checkpoints/SPVSR_GNew/model_epoch_125_psnr_26.1414.pth", map_location='cpu')
+    kk = torch.load("checkpoints/EFVSR_L_onlyLSTM/model_epoch_60_psnr_27.0211.pth", map_location='cpu')
     torch.save(kk.state_dict(), "checkpoints/state/New_125.pth")
     pretrained_dict = torch.load("checkpoints/state/New_125.pth")
     model_dict = model.state_dict()
@@ -66,7 +67,7 @@ def main():
     global model, opt
     str = "None"
     if opt.model_mark == 0:
-        str = "SPVSR_NewData_Large"
+        str = "DB_MUCAN"
     else:
         str = "ERROR"
     if use_wandb:
@@ -75,7 +76,8 @@ def main():
 
     print("===> Find Cuda")
     cuda = opt.cuda
-    torch.cuda.set_device(1)
+    # torch.cuda.set_device(1)
+    # torch.cuda.set_device(1)
     if cuda and not torch.cuda.is_available():
         raise Exception("No GPU found, please run without --cuda")
     opt.seed = random.randint(1, 10000)
@@ -91,7 +93,7 @@ def main():
 
     print("===> Building model")
     if opt.model_mark == 0:
-        model = SPVSR_GNew()
+        model = Network()
     # else:
     #     model = NLVR()
     # 加载模型
@@ -102,8 +104,8 @@ def main():
         model = model.cuda()
         criterion = criterion.cuda()
     print("===> Do Resume Or Skip")
-    checkpoint = torch.load("checkpoints/SPVSR_GNew_Large/model_epoch_23_psnr_26.1581.pth")
-    model.load_state_dict(checkpoint.state_dict())
+    # checkpoint = torch.load("checkpoints/DB_EDVR_L/model_epoch_888_psnr_27.1292.pth", map_location='cpu')
+    # model.load_state_dict(checkpoint.state_dict())
     # model = get_yu(model)
     if opt.resume:
         if os.path.isfile(opt.resume):
@@ -114,14 +116,9 @@ def main():
             print("=> no checkpoint found at '{}'".format(opt.resume))
 
     print("===> Setting Optimizer")
-    for n, p in model.named_parameters():
-        print(n, p.requires_grad)
-        if n == "conv1.0.weight":
-            p.requires_grad = False
-
-    for p in model.pcd_align.parameters():
-        p.requires_grad = False
-    optimizer = optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=opt.lr)
+    # for p in model.pcd_align.parameters():
+     #    p.requires_grad = False
+    # optimizer = optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=opt.lr)
     optimizer = optim.Adam(model.parameters(), lr=opt.lr)
 
     print("===> Training")
@@ -148,32 +145,34 @@ def train(optimizer, model, criterion, epoch, train_dataloader):
 
     print("Epoch={}, lr={}".format(epoch, optimizer.param_groups[0]["lr"]))
     # del_train_feat()
+    model = model.cuda()
     model.train()
     avg_loss = AverageMeter()
     for iteration, batch in enumerate(train_dataloader):
         input, target, feat_I_D = batch
-        feat_ID = iteration // opt.frame
+        feat_ID = iteration // opt.frame + 1500
         if iteration % opt.frame == 0:
             del_train_feat(str(feat_ID))
         if opt.cuda:
             input = input.cuda()
             target = target.cuda()
-        out = model(input, feat_ID)
+        out = model(input)
         loss = criterion(out, target)
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
         avg_loss.update(loss.item())
         if iteration % 50 == 0:
-            inp = F.interpolate(input, scale_factor=4, mode='bilinear', align_corners=False)
-            psnrroot = calc_psnr(inp[0,:,:,:], target[0,:,:,:])
+            # inp = F.interpolate(input, scale_factor=4, mode='bilinear', align_corners=False)
+            # psnrroot = calc_psnr(inp[0,:,:,:], target[0,:,:,:])
+            psnrroot = 100
             if use_wandb:
                 wandb.log({'epoch': epoch, 'iter_loss': avg_loss.avg, 'psnr_root':psnrroot})
             print('epoch_iter_{}_ID_{}_loss is {:.10f}_psnrroot_is_{:.4f}'.format(iteration, feat_ID, avg_loss.avg,psnrroot))
         if iteration % 500 == 0:
-            psnr = test_train_set(model, epoch)
-            if iteration % 1000 == 0:
-                save_checkpoint(model, psnr, epoch)
+            psnrr = test_train_set(model, epoch)
+    psnr = test_train_set(model, epoch)
+    save_checkpoint(model, psnr, epoch)
 
 
 def save_checkpoint(model, psnr, epoch):
@@ -182,7 +181,7 @@ def save_checkpoint(model, psnr, epoch):
     global opt
 
     if opt.model_mark == 0:
-        model_folder = "checkpoints/SPVSR_NewData_Large/"
+        model_folder = "checkpoints/DB_EDVR_L/"
     else:
         model_folder = "checkpoints/error/"
     if not os.path.exists(model_folder):
@@ -201,26 +200,28 @@ def save_checkpoint(model, psnr, epoch):
 
 def test_train_set(this_model, epoch_num):
     print(" -- Start eval --")
-    del_train_feat("test_addonly")
+    del_train_feat("DB_EDVR_L")
     test_set = test_data_set(opt.test_root_path, "000/")
     test_loader = DataLoader(dataset=test_set, batch_size=1, num_workers=opt.threads)
     psnr = AverageMeter()
     with torch.no_grad():
         model = this_model
-        if opt.cuda:
+        if opt.test_cuda:
             model = model.cuda()
+        else:
+            model = model.cpu()
         model.eval()
         for iteration, batch in enumerate(test_loader, 1):
             input, target, I_D = batch
-            ID = "test_addonly"
-            if opt.cuda:
+            ID = "DB_EDVR_L"
+            if opt.test_cuda:
                 input = input.cuda()
                 target = target.cuda()
-            out = model(input, ID)
+            out = model(input, gpu=False)
             psnr.update(calc_psnr(out, target), len(out))
         if use_wandb:
             wandb.log({'epoch': epoch_num, 'psnr': psnr.avg})
-        print("--->This--SPVSR_GNew_Large--epoch:{}--Avg--PSNR: {:.4f} dB--Root--PSNR: 24.11 dB".format(epoch_num,
+        print("--->This--DB_EDVR_L--epoch:{}--Avg--PSNR: {:.4f} dB--Root--PSNR: 24.11 dB".format(epoch_num,
                                                                                                psnr.avg))
     return psnr.avg
 

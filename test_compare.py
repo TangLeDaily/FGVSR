@@ -2,8 +2,7 @@ import argparse
 import os
 import random
 
-import dataset_G
-import dataset_sr
+import dataset_E
 import wandb
 import numpy
 import torch
@@ -51,9 +50,9 @@ def test_train_set():
 
     print(" -- Start eval --")
     del_test_feat()
-    test_set_A = dataset_G.test_data_set("datasets/test/REDS4/", "011/")
+    test_set_A = dataset_E.test_data_set("datasets/test/REDS4/", "011/")
     test_loader_A = DataLoader(dataset=test_set_A, batch_size=1,  num_workers=1)
-    test_set_B = dataset_sr.test_data_set("datasets/test/REDS4/", "011/")
+    test_set_B = dataset_E.test_data_set("datasets/test/REDS4/", "011/")
     test_loader_B = DataLoader(dataset=test_set_B, batch_size=1, num_workers=1)
     psnrA = AverageMeter()
     psnrB = AverageMeter()

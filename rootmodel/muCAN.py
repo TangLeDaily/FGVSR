@@ -126,10 +126,13 @@ class CNCAM(nn.Module):
         for i in range(self.nl + 1):
             self.spa_l.append(Attention(nf))
 
-    def forward(self, x):
+    def forward(self, x, gpu):
         down_fea = self.down_conv(x)
         B, C, H, W = down_fea.size()
-        ind_B = torch.arange(B, dtype=torch.long).repeat_interleave(H * W).cuda()
+        if gpu:
+            ind_B = torch.arange(B, dtype=torch.long).repeat_interleave(H * W).cuda()
+        else:
+            ind_B = torch.arange(B, dtype=torch.long).repeat_interleave(H * W)
 
         p_list = list()
         for j in range(self.nl):
@@ -222,7 +225,7 @@ class Aggregate(nn.Module):
         self.L1_corr = Correlation(kernel_size=self.cor_k, patch_size=self.patch_size[2],
                                    stride=1, padding=self.padding, dilation=1, dilation_patch=1)
 
-    def forward(self, nbr_fea_l, ref_fea_l):
+    def forward(self, nbr_fea_l, ref_fea_l, gpu):
         # L3
         B, C, H, W = nbr_fea_l[2].size()
         L3_w = torch.cat([nbr_fea_l[2], ref_fea_l[2]], dim=1)
@@ -239,114 +242,225 @@ class Aggregate(nn.Module):
         L3_ind_col_add = L3_corr_ind % self.patch_size[0]
         L3_corr_ind = L3_ind_row_add + L3_ind_col_add
         # generate top-left indexes
-        y = torch.arange(H).repeat_interleave(W).cuda()
-        x = torch.arange(W).repeat(H).cuda()
-        L3_lt_ind = y * (W + self.add_num[0]) + x
-        L3_lt_ind = L3_lt_ind.repeat_interleave(self.nbr).long().unsqueeze(0)
-        L3_corr_ind = (L3_corr_ind + L3_lt_ind).view(-1)
-        # L3_nbr: B, 64 * k * k, (H + 2 * pad - k + 1) * (W + 2 * pad -k + 1)
-        L3_nbr = F.unfold(nbr_fea_l[2], self.cor_k, dilation=1, padding=self.pad_size[0], stride=1)
-        ind_B = torch.arange(B, dtype=torch.long).repeat_interleave(H * W * self.nbr).cuda()
-        # L3: B * H * W * nbr, 64 * k * k
-        L3 = L3_nbr[ind_B, :, L3_corr_ind].view(B * H * W, self.nbr * C, self.cor_k, self.cor_k)
-        L3 = self.L3_nn_conv(L3)
-        L3 = L3.view(B, H, W, C, self.cor_k ** 2).permute(0, 3, 4, 1, 2)
-        L3 = L3.view(B, self.g, C // self.g, self.cor_k ** 2, H, W)
-        L3 = self.relu((L3 * L3_mask).sum(dim=3).view(B, C, H, W))
+        if gpu:
+            y = torch.arange(H).repeat_interleave(W).cuda()
+            x = torch.arange(W).repeat(H).cuda()
+            L3_lt_ind = y * (W + self.add_num[0]) + x
+            L3_lt_ind = L3_lt_ind.repeat_interleave(self.nbr).long().unsqueeze(0)
+            L3_corr_ind = (L3_corr_ind + L3_lt_ind).view(-1)
+            # L3_nbr: B, 64 * k * k, (H + 2 * pad - k + 1) * (W + 2 * pad -k + 1)
+            L3_nbr = F.unfold(nbr_fea_l[2], self.cor_k, dilation=1, padding=self.pad_size[0], stride=1)
+            ind_B = torch.arange(B, dtype=torch.long).repeat_interleave(H * W * self.nbr).cuda()
+            # L3: B * H * W * nbr, 64 * k * k
+            L3 = L3_nbr[ind_B, :, L3_corr_ind].view(B * H * W, self.nbr * C, self.cor_k, self.cor_k)
+            L3 = self.L3_nn_conv(L3)
+            L3 = L3.view(B, H, W, C, self.cor_k ** 2).permute(0, 3, 4, 1, 2)
+            L3 = L3.view(B, self.g, C // self.g, self.cor_k ** 2, H, W)
+            L3 = self.relu((L3 * L3_mask).sum(dim=3).view(B, C, H, W))
 
-        # L2
-        B, C, H, W = nbr_fea_l[1].size()
-        L2_w = torch.cat([nbr_fea_l[1], ref_fea_l[1]], dim=1)
-        L2_w = self.L2_conv1(L2_w)
-        L3_w = F.interpolate(L3_w, scale_factor=2, mode='bilinear', align_corners=False)
-        L2_w = self.L2_conv5(self.L2_conv4(self.L2_conv3(self.L2_conv2(torch.cat([L2_w, L3_w], dim=1)))))
-        L2_mask = self.L2_mask(L2_w).view(B, self.g, 1, self.k2 ** 2, H, W)
-        # generate most similar feas
-        L2_norm_ref_fea = F.normalize(ref_fea_l[1], dim=1)
-        L2_norm_nbr_fea = F.normalize(nbr_fea_l[1], dim=1)
-        L2_corr = self.L2_corr(L2_norm_ref_fea, L2_norm_nbr_fea).view(B, -1, H, W)
-        _, L2_corr_ind = torch.topk(L2_corr, self.nbr, dim=1)
-        L2_corr_ind = L2_corr_ind.permute(0, 2, 3, 1).reshape(B, H * W * self.nbr)
-        L2_ind_row_add = L2_corr_ind // self.patch_size[1] * (W + self.add_num[1])
-        L2_ind_col_add = L2_corr_ind % self.patch_size[1]
-        L2_corr_ind = L2_ind_row_add + L2_ind_col_add
-        # generate top-left indexes
-        y = torch.arange(H).repeat_interleave(W).cuda()
-        x = torch.arange(W).repeat(H).cuda()
-        L2_lt_ind = y * (W + self.add_num[1]) + x
-        L2_lt_ind = L2_lt_ind.repeat_interleave(self.nbr).long().unsqueeze(0)
-        L2_corr_ind = (L2_corr_ind + L2_lt_ind).view(-1)
-        L2_nbr = F.unfold(nbr_fea_l[1], self.cor_k, dilation=1, padding=self.pad_size[1], stride=1)
-        ind_B = torch.arange(B, dtype=torch.long).repeat_interleave(H * W * self.nbr).cuda()
-        L2 = L2_nbr[ind_B, :, L2_corr_ind].view(B * H * W, self.nbr * C, self.cor_k, self.cor_k)
-        L2 = self.L2_nn_conv(L2)
-        L2 = L2.view(B, H, W, C, self.cor_k ** 2).permute(0, 3, 4, 1, 2)
-        L2 = L2.view(B, self.g, C // self.g, self.cor_k ** 2, H, W)
-        L2 = self.relu((L2 * L2_mask).sum(dim=3).view(B, C, H, W))
-        # fuse F2 with F3
-        L3 = F.interpolate(L3, scale_factor=2, mode='bilinear', align_corners=False)
-        L2 = self.L2_fea_conv(torch.cat([L2, L3], dim=1))
+            # L2
+            B, C, H, W = nbr_fea_l[1].size()
+            L2_w = torch.cat([nbr_fea_l[1], ref_fea_l[1]], dim=1)
+            L2_w = self.L2_conv1(L2_w)
+            L3_w = F.interpolate(L3_w, scale_factor=2, mode='bilinear', align_corners=False)
+            L2_w = self.L2_conv5(self.L2_conv4(self.L2_conv3(self.L2_conv2(torch.cat([L2_w, L3_w], dim=1)))))
+            L2_mask = self.L2_mask(L2_w).view(B, self.g, 1, self.k2 ** 2, H, W)
+            # generate most similar feas
+            L2_norm_ref_fea = F.normalize(ref_fea_l[1], dim=1)
+            L2_norm_nbr_fea = F.normalize(nbr_fea_l[1], dim=1)
+            L2_corr = self.L2_corr(L2_norm_ref_fea, L2_norm_nbr_fea).view(B, -1, H, W)
+            _, L2_corr_ind = torch.topk(L2_corr, self.nbr, dim=1)
+            L2_corr_ind = L2_corr_ind.permute(0, 2, 3, 1).reshape(B, H * W * self.nbr)
+            L2_ind_row_add = L2_corr_ind // self.patch_size[1] * (W + self.add_num[1])
+            L2_ind_col_add = L2_corr_ind % self.patch_size[1]
+            L2_corr_ind = L2_ind_row_add + L2_ind_col_add
+            # generate top-left indexes
+            y = torch.arange(H).repeat_interleave(W).cuda()
+            x = torch.arange(W).repeat(H).cuda()
+            L2_lt_ind = y * (W + self.add_num[1]) + x
+            L2_lt_ind = L2_lt_ind.repeat_interleave(self.nbr).long().unsqueeze(0)
+            L2_corr_ind = (L2_corr_ind + L2_lt_ind).view(-1)
+            L2_nbr = F.unfold(nbr_fea_l[1], self.cor_k, dilation=1, padding=self.pad_size[1], stride=1)
+            ind_B = torch.arange(B, dtype=torch.long).repeat_interleave(H * W * self.nbr).cuda()
+            L2 = L2_nbr[ind_B, :, L2_corr_ind].view(B * H * W, self.nbr * C, self.cor_k, self.cor_k)
+            L2 = self.L2_nn_conv(L2)
+            L2 = L2.view(B, H, W, C, self.cor_k ** 2).permute(0, 3, 4, 1, 2)
+            L2 = L2.view(B, self.g, C // self.g, self.cor_k ** 2, H, W)
+            L2 = self.relu((L2 * L2_mask).sum(dim=3).view(B, C, H, W))
+            # fuse F2 with F3
+            L3 = F.interpolate(L3, scale_factor=2, mode='bilinear', align_corners=False)
+            L2 = self.L2_fea_conv(torch.cat([L2, L3], dim=1))
 
-        # L1
-        B, C, H, W = nbr_fea_l[0].size()
-        L1_w = torch.cat([nbr_fea_l[0], ref_fea_l[0]], dim=1)
-        L1_w = self.L1_conv1(L1_w)
-        L2_w = F.interpolate(L2_w, scale_factor=2, mode='bilinear', align_corners=False)
-        L1_w = self.L1_conv5(self.L1_conv4(self.L1_conv3(self.L1_conv2(torch.cat([L1_w, L2_w], dim=1)))))
-        L1_mask = self.L1_mask(L1_w).view(B, self.g, 1, self.k1 ** 2, H, W)
-        # generate mot similar feas
-        L1_norm_ref_fea = F.normalize(ref_fea_l[0], dim=1)
-        L1_norm_nbr_fea = F.normalize(nbr_fea_l[0], dim=1)
-        L1_corr = self.L1_corr(L1_norm_ref_fea, L1_norm_nbr_fea).view(B, -1, H, W)
-        _, L1_corr_ind = torch.topk(L1_corr, self.nbr, dim=1)
-        L1_corr_ind = L1_corr_ind.permute(0, 2, 3, 1).reshape(B, H * W * self.nbr)
-        L1_ind_row_add = L1_corr_ind // self.patch_size[2] * (W + self.add_num[2])
-        L1_ind_col_add = L1_corr_ind % self.patch_size[2]
-        L1_corr_ind = L1_ind_row_add + L1_ind_col_add
-        # generate top-left indexes
-        y = torch.arange(H).repeat_interleave(W).cuda()
-        x = torch.arange(W).repeat(H).cuda()
-        L1_lt_ind = y * (W + self.add_num[2]) + x
-        L1_lt_ind = L1_lt_ind.repeat_interleave(self.nbr).long().unsqueeze(0)
-        L1_corr_ind = (L1_corr_ind + L1_lt_ind).view(-1)
-        L1_nbr = F.unfold(nbr_fea_l[0], self.cor_k, dilation=1, padding=self.pad_size[2], stride=1)
-        ind_B = torch.arange(B, dtype=torch.long).repeat_interleave(H * W * self.nbr).cuda()
-        L1 = L1_nbr[ind_B, :, L1_corr_ind].view(B * H * W, self.nbr * C, self.cor_k, self.cor_k)
-        # L1 = L1.permute(0, 2, 1, 3, 4).contiguous().view(B * H * W, self.nbr * C, self.cor_k, self.cor_k)
-        L1 = self.L1_nn_conv(L1)
-        L1 = L1.view(B, H, W, C, self.cor_k ** 2).permute(0, 3, 4, 1, 2)
-        L1 = L1.view(B, self.g, C // self.g, self.cor_k ** 2, H, W)
-        L1 = self.relu((L1 * L1_mask).sum(dim=3).view(B, C, H, W))
-        # fuse L1 with L2
-        L2 = F.interpolate(L2, scale_factor=2, mode='bilinear', align_corners=False)
-        L1 = self.L1_fea_conv(torch.cat([L1, L2], dim=1))
+            # L1
+            B, C, H, W = nbr_fea_l[0].size()
+            L1_w = torch.cat([nbr_fea_l[0], ref_fea_l[0]], dim=1)
+            L1_w = self.L1_conv1(L1_w)
+            L2_w = F.interpolate(L2_w, scale_factor=2, mode='bilinear', align_corners=False)
+            L1_w = self.L1_conv5(self.L1_conv4(self.L1_conv3(self.L1_conv2(torch.cat([L1_w, L2_w], dim=1)))))
+            L1_mask = self.L1_mask(L1_w).view(B, self.g, 1, self.k1 ** 2, H, W)
+            # generate mot similar feas
+            L1_norm_ref_fea = F.normalize(ref_fea_l[0], dim=1)
+            L1_norm_nbr_fea = F.normalize(nbr_fea_l[0], dim=1)
+            L1_corr = self.L1_corr(L1_norm_ref_fea, L1_norm_nbr_fea).view(B, -1, H, W)
+            _, L1_corr_ind = torch.topk(L1_corr, self.nbr, dim=1)
+            L1_corr_ind = L1_corr_ind.permute(0, 2, 3, 1).reshape(B, H * W * self.nbr)
+            L1_ind_row_add = L1_corr_ind // self.patch_size[2] * (W + self.add_num[2])
+            L1_ind_col_add = L1_corr_ind % self.patch_size[2]
+            L1_corr_ind = L1_ind_row_add + L1_ind_col_add
+            # generate top-left indexes
+            y = torch.arange(H).repeat_interleave(W).cuda()
+            x = torch.arange(W).repeat(H).cuda()
+            L1_lt_ind = y * (W + self.add_num[2]) + x
+            L1_lt_ind = L1_lt_ind.repeat_interleave(self.nbr).long().unsqueeze(0)
+            L1_corr_ind = (L1_corr_ind + L1_lt_ind).view(-1)
+            L1_nbr = F.unfold(nbr_fea_l[0], self.cor_k, dilation=1, padding=self.pad_size[2], stride=1)
+            ind_B = torch.arange(B, dtype=torch.long).repeat_interleave(H * W * self.nbr).cuda()
+            L1 = L1_nbr[ind_B, :, L1_corr_ind].view(B * H * W, self.nbr * C, self.cor_k, self.cor_k)
+            # L1 = L1.permute(0, 2, 1, 3, 4).contiguous().view(B * H * W, self.nbr * C, self.cor_k, self.cor_k)
+            L1 = self.L1_nn_conv(L1)
+            L1 = L1.view(B, H, W, C, self.cor_k ** 2).permute(0, 3, 4, 1, 2)
+            L1 = L1.view(B, self.g, C // self.g, self.cor_k ** 2, H, W)
+            L1 = self.relu((L1 * L1_mask).sum(dim=3).view(B, C, H, W))
+            # fuse L1 with L2
+            L2 = F.interpolate(L2, scale_factor=2, mode='bilinear', align_corners=False)
+            L1 = self.L1_fea_conv(torch.cat([L1, L2], dim=1))
 
-        # cascade
-        cas_w = torch.cat([L1, ref_fea_l[0]], dim=1)
-        cas_w = self.cas_conv4(self.cas_conv3(self.cas_conv2(self.cas_conv1(cas_w))))
-        cas_mask = self.cas_mask(cas_w).view(B, self.g, 1, self.cas_k ** 2, H, W)
-        # generate mot similar feas
-        cas_norm_ref_fea = F.normalize(ref_fea_l[0], dim=1)
-        cas_norm_nbr_fea = F.normalize(L1, dim=1)
-        cas_corr = self.L3_corr(cas_norm_ref_fea, cas_norm_nbr_fea).view(B, -1, H, W)
-        _, cas_corr_ind = torch.topk(cas_corr, self.nbr, dim=1)
-        cas_corr_ind = cas_corr_ind.permute(0, 2, 3, 1).reshape(B, H * W * self.nbr)
-        cas_ind_row_add = cas_corr_ind // self.patch_size[0] * (W + self.add_num[0])
-        cas_ind_col_add = cas_corr_ind % self.patch_size[0]
-        cas_corr_ind = cas_ind_row_add + cas_ind_col_add
-        # generate top-left indexes
-        cas_lt_ind = y * (W + self.add_num[0]) + x
-        cas_lt_ind = cas_lt_ind.repeat_interleave(self.nbr).long().unsqueeze(0)
-        cas_corr_ind = (cas_corr_ind + cas_lt_ind).view(-1)
-        cas_nbr = F.unfold(L1, self.cor_k, dilation=1, padding=self.pad_size[0], stride=1)
-        cas = cas_nbr[ind_B, :, cas_corr_ind].view(B * H * W, self.nbr * C, self.cor_k, self.cor_k)
-        # cas = cas.permute(0, 2, 1, 3, 4).contiguous().view(B * H * W, self.nbr * C, self.cor_k, self.cor_k)
-        cas = self.cas_nn_conv(cas)
-        cas = cas.view(B, H, W, C, self.cor_k ** 2).permute(0, 3, 4, 1, 2)
-        cas = cas.view(B, self.g, C // self.g, self.cor_k ** 2, H, W)
-        cas = self.relu((cas * cas_mask).sum(dim=3).view(B, C, H, W))
+            # cascade
+            cas_w = torch.cat([L1, ref_fea_l[0]], dim=1)
+            cas_w = self.cas_conv4(self.cas_conv3(self.cas_conv2(self.cas_conv1(cas_w))))
+            cas_mask = self.cas_mask(cas_w).view(B, self.g, 1, self.cas_k ** 2, H, W)
+            # generate mot similar feas
+            cas_norm_ref_fea = F.normalize(ref_fea_l[0], dim=1)
+            cas_norm_nbr_fea = F.normalize(L1, dim=1)
+            cas_corr = self.L3_corr(cas_norm_ref_fea, cas_norm_nbr_fea).view(B, -1, H, W)
+            _, cas_corr_ind = torch.topk(cas_corr, self.nbr, dim=1)
+            cas_corr_ind = cas_corr_ind.permute(0, 2, 3, 1).reshape(B, H * W * self.nbr)
+            cas_ind_row_add = cas_corr_ind // self.patch_size[0] * (W + self.add_num[0])
+            cas_ind_col_add = cas_corr_ind % self.patch_size[0]
+            cas_corr_ind = cas_ind_row_add + cas_ind_col_add
+            # generate top-left indexes
+            cas_lt_ind = y * (W + self.add_num[0]) + x
+            cas_lt_ind = cas_lt_ind.repeat_interleave(self.nbr).long().unsqueeze(0)
+            cas_corr_ind = (cas_corr_ind + cas_lt_ind).view(-1)
+            cas_nbr = F.unfold(L1, self.cor_k, dilation=1, padding=self.pad_size[0], stride=1)
+            cas = cas_nbr[ind_B, :, cas_corr_ind].view(B * H * W, self.nbr * C, self.cor_k, self.cor_k)
+            # cas = cas.permute(0, 2, 1, 3, 4).contiguous().view(B * H * W, self.nbr * C, self.cor_k, self.cor_k)
+            cas = self.cas_nn_conv(cas)
+            cas = cas.view(B, H, W, C, self.cor_k ** 2).permute(0, 3, 4, 1, 2)
+            cas = cas.view(B, self.g, C // self.g, self.cor_k ** 2, H, W)
+            cas = self.relu((cas * cas_mask).sum(dim=3).view(B, C, H, W))
 
-        return cas
+            return cas
+        else:
+            y = torch.arange(H).repeat_interleave(W)
+            x = torch.arange(W).repeat(H)
+            L3_lt_ind = y * (W + self.add_num[0]) + x
+            L3_lt_ind = L3_lt_ind.repeat_interleave(self.nbr).long().unsqueeze(0)
+            L3_corr_ind = (L3_corr_ind + L3_lt_ind).view(-1)
+            # L3_nbr: B, 64 * k * k, (H + 2 * pad - k + 1) * (W + 2 * pad -k + 1)
+            L3_nbr = F.unfold(nbr_fea_l[2], self.cor_k, dilation=1, padding=self.pad_size[0], stride=1)
+            ind_B = torch.arange(B, dtype=torch.long).repeat_interleave(H * W * self.nbr)
+            # L3: B * H * W * nbr, 64 * k * k
+            L3 = L3_nbr[ind_B, :, L3_corr_ind].view(B * H * W, self.nbr * C, self.cor_k, self.cor_k)
+            L3 = self.L3_nn_conv(L3)
+            L3 = L3.view(B, H, W, C, self.cor_k ** 2).permute(0, 3, 4, 1, 2)
+            L3 = L3.view(B, self.g, C // self.g, self.cor_k ** 2, H, W)
+            L3 = self.relu((L3 * L3_mask).sum(dim=3).view(B, C, H, W))
+
+            # L2
+            B, C, H, W = nbr_fea_l[1].size()
+            L2_w = torch.cat([nbr_fea_l[1], ref_fea_l[1]], dim=1)
+            L2_w = self.L2_conv1(L2_w)
+            L3_w = F.interpolate(L3_w, scale_factor=2, mode='bilinear', align_corners=False)
+            L2_w = self.L2_conv5(self.L2_conv4(self.L2_conv3(self.L2_conv2(torch.cat([L2_w, L3_w], dim=1)))))
+            L2_mask = self.L2_mask(L2_w).view(B, self.g, 1, self.k2 ** 2, H, W)
+            # generate most similar feas
+            L2_norm_ref_fea = F.normalize(ref_fea_l[1], dim=1)
+            L2_norm_nbr_fea = F.normalize(nbr_fea_l[1], dim=1)
+            L2_corr = self.L2_corr(L2_norm_ref_fea, L2_norm_nbr_fea).view(B, -1, H, W)
+            _, L2_corr_ind = torch.topk(L2_corr, self.nbr, dim=1)
+            L2_corr_ind = L2_corr_ind.permute(0, 2, 3, 1).reshape(B, H * W * self.nbr)
+            L2_ind_row_add = L2_corr_ind // self.patch_size[1] * (W + self.add_num[1])
+            L2_ind_col_add = L2_corr_ind % self.patch_size[1]
+            L2_corr_ind = L2_ind_row_add + L2_ind_col_add
+            # generate top-left indexes
+            y = torch.arange(H).repeat_interleave(W)
+            x = torch.arange(W).repeat(H)
+            L2_lt_ind = y * (W + self.add_num[1]) + x
+            L2_lt_ind = L2_lt_ind.repeat_interleave(self.nbr).long().unsqueeze(0)
+            L2_corr_ind = (L2_corr_ind + L2_lt_ind).view(-1)
+            L2_nbr = F.unfold(nbr_fea_l[1], self.cor_k, dilation=1, padding=self.pad_size[1], stride=1)
+            ind_B = torch.arange(B, dtype=torch.long).repeat_interleave(H * W * self.nbr)
+            L2 = L2_nbr[ind_B, :, L2_corr_ind].view(B * H * W, self.nbr * C, self.cor_k, self.cor_k)
+            L2 = self.L2_nn_conv(L2)
+            L2 = L2.view(B, H, W, C, self.cor_k ** 2).permute(0, 3, 4, 1, 2)
+            L2 = L2.view(B, self.g, C // self.g, self.cor_k ** 2, H, W)
+            L2 = self.relu((L2 * L2_mask).sum(dim=3).view(B, C, H, W))
+            # fuse F2 with F3
+            L3 = F.interpolate(L3, scale_factor=2, mode='bilinear', align_corners=False)
+            L2 = self.L2_fea_conv(torch.cat([L2, L3], dim=1))
+
+            # L1
+            B, C, H, W = nbr_fea_l[0].size()
+            L1_w = torch.cat([nbr_fea_l[0], ref_fea_l[0]], dim=1)
+            L1_w = self.L1_conv1(L1_w)
+            L2_w = F.interpolate(L2_w, scale_factor=2, mode='bilinear', align_corners=False)
+            L1_w = self.L1_conv5(self.L1_conv4(self.L1_conv3(self.L1_conv2(torch.cat([L1_w, L2_w], dim=1)))))
+            L1_mask = self.L1_mask(L1_w).view(B, self.g, 1, self.k1 ** 2, H, W)
+            # generate mot similar feas
+            L1_norm_ref_fea = F.normalize(ref_fea_l[0], dim=1)
+            L1_norm_nbr_fea = F.normalize(nbr_fea_l[0], dim=1)
+            L1_corr = self.L1_corr(L1_norm_ref_fea, L1_norm_nbr_fea).view(B, -1, H, W)
+            _, L1_corr_ind = torch.topk(L1_corr, self.nbr, dim=1)
+            L1_corr_ind = L1_corr_ind.permute(0, 2, 3, 1).reshape(B, H * W * self.nbr)
+            L1_ind_row_add = L1_corr_ind // self.patch_size[2] * (W + self.add_num[2])
+            L1_ind_col_add = L1_corr_ind % self.patch_size[2]
+            L1_corr_ind = L1_ind_row_add + L1_ind_col_add
+            # generate top-left indexes
+            y = torch.arange(H).repeat_interleave(W)
+            x = torch.arange(W).repeat(H)
+            L1_lt_ind = y * (W + self.add_num[2]) + x
+            L1_lt_ind = L1_lt_ind.repeat_interleave(self.nbr).long().unsqueeze(0)
+            L1_corr_ind = (L1_corr_ind + L1_lt_ind).view(-1)
+            L1_nbr = F.unfold(nbr_fea_l[0], self.cor_k, dilation=1, padding=self.pad_size[2], stride=1)
+            ind_B = torch.arange(B, dtype=torch.long).repeat_interleave(H * W * self.nbr)
+            L1 = L1_nbr[ind_B, :, L1_corr_ind].view(B * H * W, self.nbr * C, self.cor_k, self.cor_k)
+            # L1 = L1.permute(0, 2, 1, 3, 4).contiguous().view(B * H * W, self.nbr * C, self.cor_k, self.cor_k)
+            L1 = self.L1_nn_conv(L1)
+            L1 = L1.view(B, H, W, C, self.cor_k ** 2).permute(0, 3, 4, 1, 2)
+            L1 = L1.view(B, self.g, C // self.g, self.cor_k ** 2, H, W)
+            L1 = self.relu((L1 * L1_mask).sum(dim=3).view(B, C, H, W))
+            # fuse L1 with L2
+            L2 = F.interpolate(L2, scale_factor=2, mode='bilinear', align_corners=False)
+            L1 = self.L1_fea_conv(torch.cat([L1, L2], dim=1))
+
+            # cascade
+            cas_w = torch.cat([L1, ref_fea_l[0]], dim=1)
+            cas_w = self.cas_conv4(self.cas_conv3(self.cas_conv2(self.cas_conv1(cas_w))))
+            cas_mask = self.cas_mask(cas_w).view(B, self.g, 1, self.cas_k ** 2, H, W)
+            # generate mot similar feas
+            cas_norm_ref_fea = F.normalize(ref_fea_l[0], dim=1)
+            cas_norm_nbr_fea = F.normalize(L1, dim=1)
+            cas_corr = self.L3_corr(cas_norm_ref_fea, cas_norm_nbr_fea).view(B, -1, H, W)
+            _, cas_corr_ind = torch.topk(cas_corr, self.nbr, dim=1)
+            cas_corr_ind = cas_corr_ind.permute(0, 2, 3, 1).reshape(B, H * W * self.nbr)
+            cas_ind_row_add = cas_corr_ind // self.patch_size[0] * (W + self.add_num[0])
+            cas_ind_col_add = cas_corr_ind % self.patch_size[0]
+            cas_corr_ind = cas_ind_row_add + cas_ind_col_add
+            # generate top-left indexes
+            cas_lt_ind = y * (W + self.add_num[0]) + x
+            cas_lt_ind = cas_lt_ind.repeat_interleave(self.nbr).long().unsqueeze(0)
+            cas_corr_ind = (cas_corr_ind + cas_lt_ind).view(-1)
+            cas_nbr = F.unfold(L1, self.cor_k, dilation=1, padding=self.pad_size[0], stride=1)
+            cas = cas_nbr[ind_B, :, cas_corr_ind].view(B * H * W, self.nbr * C, self.cor_k, self.cor_k)
+            # cas = cas.permute(0, 2, 1, 3, 4).contiguous().view(B * H * W, self.nbr * C, self.cor_k, self.cor_k)
+            cas = self.cas_nn_conv(cas)
+            cas = cas.view(B, H, W, C, self.cor_k ** 2).permute(0, 3, 4, 1, 2)
+            cas = cas.view(B, self.g, C // self.g, self.cor_k ** 2, H, W)
+            cas = self.relu((cas * cas_mask).sum(dim=3).view(B, C, H, W))
+
+            return cas
+
 
 
 class TemporalFusion(nn.Module):
@@ -390,7 +504,7 @@ class TMCAM(nn.Module):
         self.aggr = Aggregate(nf=nf, nbr=nbr, n_group=n_group, kernels=kernels, patches=patches, cor_ksize=cor_ksize)
         self.tf = TemporalFusion(nf=nf, n_frame=n_frame)
 
-    def forward(self, x):
+    def forward(self, x, gpu):
         # b, 2, c, h, w
         L1_fea, L2_fea, L3_fea = x
         center = 0
@@ -406,7 +520,7 @@ class TMCAM(nn.Module):
                 L1_fea[:, i, :, :, :].clone(), L2_fea[:, i, :, :, :].clone(),
                 L3_fea[:, i, :, :, :].clone()
             ]
-            aggr_fea_l.append(self.aggr(nbr_fea_l, ref_fea_l))
+            aggr_fea_l.append(self.aggr(nbr_fea_l, ref_fea_l, gpu=gpu))
 
         aggr_fea = torch.stack(aggr_fea_l, dim=1)  # [B, N, C, H, W]
         out = self.tf(aggr_fea)
@@ -451,7 +565,7 @@ class Network(nn.Module):
 
         self.lrelu = nn.LeakyReLU(negative_slope=0.1, inplace=True)
 
-    def forward(self, x, gt=None):
+    def forward(self, x, gt=None, gpu=True):
         B, N, C, H, W = x.size() #n=2
         x_center = x[:, 0, :, :, :].contiguous()
 
@@ -468,8 +582,8 @@ class Network(nn.Module):
         L2_fea = L2_fea.view(B, N, -1, H // 2, W // 2)
         L3_fea = L3_fea.view(B, N, -1, H // 4, W // 4)
 
-        fea = self.tmcam([L1_fea, L2_fea, L3_fea])
-        fea = self.cncam(fea)
+        fea = self.tmcam([L1_fea, L2_fea, L3_fea], gpu=gpu)
+        fea = self.cncam(fea, gpu=gpu)
 
         fea = self.recon(fea)
         fea = self.lrelu(self.ps(self.up_conv(fea)))
