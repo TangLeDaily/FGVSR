@@ -101,13 +101,11 @@ class LSTM(nn.Module):
     Generate a convolutional LSTM cell
     """
 
-    def __init__(self, input_size=64, hidden_size=64, crop_num = 4):
+    def __init__(self, input_size=64, hidden_size=64):
         super(LSTM, self).__init__()
-        self.crop_num = crop_num
         self.input_size = input_size
         self.hidden_size = hidden_size
         self.Gates = nn.Conv2d(input_size + hidden_size, 4 * hidden_size, 3, padding=3 // 2)
-        self.attn = BasicBlock()
 
     def forward(self, input_, prev_hidden, prev_cell):
         # get batch and spatial sizes
@@ -126,17 +124,7 @@ class LSTM(nn.Module):
         # data size is [batch, channel, height, width]
         stacked_inputs = torch.cat((input_, prev_hidden), 1)
         gates = self.Gates(stacked_inputs)
-        # attention
-        h_crop = gates.chunk(self.crop_num, 2)
-        w_crop = []
-        h_cropp = []
-        for i in range(self.crop_num):
-            w_crop.append(h_crop[i].chunk(self.crop_num, 3))
-            w_cropp = []
-            for j in range(self.crop_num):
-                w_cropp.append(self.attn(w_crop[i][j]))
-            h_cropp.append(torch.cat(w_cropp, 3))
-        gates = torch.cat(h_cropp, 2)
+
         # chunk across channel dimension
         in_gate, remember_gate, out_gate, cell_gate = gates.chunk(4, 1)
 
@@ -152,6 +140,42 @@ class LSTM(nn.Module):
         cell = (remember_gate * prev_cell) + (in_gate * cell_gate)
         hidden = out_gate * f.tanh(cell)
         return hidden, cell
+
+class LSTM_enhence(nn.Module):
+    def __init__(self):
+        super(LSTM_enhence, self).__init__()
+        self.LSTM = nn.ModuleDict()
+        self.RB = nn.ModuleDict()
+        for i in range(3):
+            self.LSTM[str(i)] = LSTM()
+            self.RB[str(i)] = ResidualBlockNoBN()
+    def forward(self, input_feat, input_cell, ref_feat, neb_feat, single):
+        hp_feat = []
+        hn_feat = []
+        c_feat = []
+        if single:
+            for i in range(3):
+                if input_feat is None:
+                    h_pre, c = self.LSTM[str(i)](neb_feat[i], None, None)
+                else:
+                    h_pre, c = self.LSTM[str(i)](neb_feat[i], input_feat[i], input_cell[i])
+                h_now, c = self.LSTM[str(i)](ref_feat[i], h_pre, c)
+                hp_feat.append(self.RB[str(i)](h_pre + neb_feat[i]))
+                hn_feat.append(self.RB[str(i)](h_now + ref_feat[i]))
+                c_feat.append(c)
+            return hn_feat, c_feat, hn_feat, hp_feat
+        else:
+            for i in range(3):
+                if input_feat is None:
+                    h_now, c = self.LSTM[str(i)](ref_feat[i], None, None)
+                else:
+                    h_now, c = self.LSTM[str(i)](ref_feat[i], input_feat[i], input_cell[i])
+                h_pre, c = self.LSTM[str(i)](neb_feat[i], h_now, c)
+                hp_feat.append(self.RB[str(i)](h_pre + neb_feat[i]))
+                hn_feat.append(self.RB[str(i)](h_now + ref_feat[i]))
+                c_feat.append(c)
+            return hp_feat, c_feat, hn_feat, hp_feat
+
 
 
 def make_layer(basic_block, num_basic_block, **kwarg):
@@ -269,7 +293,6 @@ class PCDAlignment(nn.Module):
                 stride=1,
                 padding=1,
                 deformable_groups=deformable_groups)
-            self.LSTM[level] = LSTM(num_feat, num_feat)
 
             if i < 3:
                 self.feat_conv[level] = nn.Conv2d(num_feat * 2, num_feat, 3, 1,
@@ -290,48 +313,7 @@ class PCDAlignment(nn.Module):
             scale_factor=2, mode='bilinear', align_corners=False)
         self.lrelu = nn.LeakyReLU(negative_slope=0.1, inplace=True)
 
-    #
-    # def save_feature_three(self, feat_ID, i, feat):
-    #     if not os.path.exists("data/feature/"):
-    #         os.makedirs("data/feature/")
-    #     np_feat = feat.cpu().detach().numpy()
-    #     numpy.save("data/feature/" + feat_ID + "_{}.npy".format(i), np_feat)
-    # def get_feature_three(self, feat_ID):
-    #     tensor_feat = []
-    #     if not os.path.exists("data/feature/"):
-    #         os.makedirs("data/feature/")
-    #     if os.path.exists("data/feature/" + feat_ID + "_0.npy"):
-    #         np_feat1 = numpy.load("data/feature/" + feat_ID + "_0.npy")
-    #         np_feat2 = numpy.load("data/feature/" + feat_ID + "_1.npy")
-    #         np_feat3 = numpy.load("data/feature/" + feat_ID + "_2.npy")
-    #         tensor_feat.append(torch.from_numpy(np_feat1))
-    #         tensor_feat.append(torch.from_numpy(np_feat2))
-    #         tensor_feat.append(torch.from_numpy(np_feat3))
-    #         return True, tensor_feat
-    #     else:
-    #         return False, None
-    def get_feature_PCD(self, feat_ID, i):
-        if not os.path.exists("../data/feature/"):
-            os.makedirs("../data/feature/")
-        if os.path.exists("data/feature/" + feat_ID + "_{}_pcd_h.npy".format(i)):
-            np_feat_h = numpy.load("data/feature/" + feat_ID + "_{}_pcd_h.npy".format(i))
-            np_feat_c = numpy.load("data/feature/" + feat_ID + "_{}_pcd_c.npy".format(i))
-            return True, np_feat_h, np_feat_c
-        else:
-            print("No this:")
-            print("data/feature/" + feat_ID + "_{}_pcd_h.npy".format(i))
-            return False, None, None
-
-    def save_feature_PCD(self, feat_ID, i, feat_h, feat_c):
-        if not os.path.exists("../data/feature/"):
-            os.makedirs("../data/feature/")
-        np_feat_h = feat_h.cpu().detach().numpy()
-        np_feat_c = feat_c.cpu().detach().numpy()
-        numpy.save("data/feature/" + feat_ID + "_{}_pcd_h.npy".format(i), np_feat_h)
-        numpy.save("data/feature/" + feat_ID + "_{}_pcd_c.npy".format(i), np_feat_c)
-        # print("data/feature/" + feat_ID + "_{}_pcd_h.npy".format(i))
-
-    def forward(self, feat_ID, nbr_feat_l, ref_feat_l, sav):
+    def forward(self,nbr_feat_l, ref_feat_l):
         # Pyramids
         for i in range(3, 0, -1):
             level = f'l{i}'
@@ -345,13 +327,6 @@ class PCDAlignment(nn.Module):
                 offset = self.lrelu(self.offset_conv3[level](offset))
 
             feat = self.dcn_pack[level](nbr_feat_l[i - 1], offset)
-            if sav:
-                Nofirst, prefeat_h, prefeat_c = self.get_feature_PCD(feat_ID, i - 1)
-                if Nofirst:
-                    feat, next_c = self.LSTM[level](feat, prefeat_h, prefeat_c)
-                else:
-                    feat, next_c = self.LSTM[level](feat, prev_hidden=None, prev_cell=None)
-                self.save_feature_PCD(feat_ID, i - 1, feat, next_c)
             if i < 3:
                 feat = self.feat_conv[level](
                     torch.cat([feat, upsampled_feat], dim=1))
@@ -468,6 +443,7 @@ class EFVSR(nn.Module):
         self.conv_l3_1 = nn.Conv2d(num_feat, num_feat, 3, 2, 1)
         self.conv_l3_2 = nn.Conv2d(num_feat, num_feat, 3, 1, 1)
 
+        self.LSTM_enhence = LSTM_enhence()
         # pcd and tsa module
         self.pcd_align = PCDAlignment(num_feat=num_feat, deformable_groups=deformable_groups)
         self.fusion = TSAFusion(num_feat=num_feat, num_frame=num_frame)
@@ -484,48 +460,11 @@ class EFVSR(nn.Module):
         # activation function
         self.lrelu = nn.LeakyReLU(negative_slope=0.1, inplace=True)
 
-    def get_feature(self, feat_ID):
-        tensor_feat = []
-        if not os.path.exists("../data/feature/"):
-            os.makedirs("../data/feature/")
-        if os.path.exists("data/feature/" + feat_ID + ".npy"):
-            np_feat_h = numpy.load("data/feature/" + feat_ID + "_pre_h.npy")
-            np_feat_c = numpy.load("data/feature/" + feat_ID + "_pre_c.npy")
-            return True, np_feat_h, np_feat_c
-        else:
-            return False, None, None
-
-    def save_feature(self, feat_ID, feat_h, feat_c):
-        if not os.path.exists("../data/feature/"):
-            os.makedirs("../data/feature/")
-        np_feat_h = feat_h.cpu().detach().numpy()
-        np_feat_c = feat_c.cpu().detach().numpy()
-        numpy.save("data/feature/" + feat_ID + "_pre_h.npy", np_feat_h)
-        numpy.save("data/feature/" + feat_ID + "_pre_c.npy", np_feat_c)
-
-    def forward(self, x, feat_ID):
-        feat_ID = str(feat_ID)
+    def forward(self, x, single, last_h, last_c):
         b, t, c, h, w = x.size()
         x_center = x[:, 0, :, :, :].contiguous()
 
         # extract features for each frame
-        # L1
-        # print("X:{}".format(x.size()))
-        Nofirst, prefeat_h, prefeat_c = self.get_feature(feat_ID)
-        if Nofirst:
-            prefeat_h = prefeat_h.cuda()
-            prefeat_c = prefeat_c.cuda()
-        # extract features for each frame
-        # L1
-
-        # add LSTM
-        # first = self.lrelu(self.conv_first(x.view(-1, c, h, w)))
-        # first = first.view(b, t, -1, h, w)
-        # next_h, next_c = self.LSTM(first[:, 1, :, :, :], prefeat_h, prefeat_c)
-        # self.save_feature(feat_ID, next_h, next_c)
-        # feat_l1 = torch.stack((first[:, 0, :, :, :], next_h), dim=1)
-        # feat_l1 = self.feature_extraction(feat_l1.view(-1, 64, h, w))
-
         # orign
         feat_l1 = self.lrelu(self.conv_first(x.view(-1, c, h, w)))
         feat_l1 = self.feature_extraction(feat_l1)
@@ -555,9 +494,11 @@ class EFVSR(nn.Module):
                 feat_l3[:, i, :, :, :].clone()
             ]
             if i == 0:
-                aligned_feat.append(self.pcd_align(feat_ID, nbr_feat_l, ref_feat_l, sav=False))
+
+                aligned_feat.append(self.pcd_align(nbr_feat_l, ref_feat_l))
             else:
-                aligned_feat.append(self.pcd_align(feat_ID, nbr_feat_l, ref_feat_l, sav=True))
+                next_h, next_c, ref_feat_l, nbr_feat_l = self.LSTM_enhence(last_h, last_c, ref_feat_l, nbr_feat_l, single)
+                aligned_feat.append(self.pcd_align(nbr_feat_l, ref_feat_l))
         aligned_feat = torch.stack(aligned_feat, dim=1)  # (b, t, c, h, w)
 
         feat = self.fusion(aligned_feat)
@@ -569,4 +510,4 @@ class EFVSR(nn.Module):
         out = self.conv_last(out)
         base = F.interpolate(x_center, scale_factor=4, mode='bilinear', align_corners=False)
         out += base
-        return out
+        return out, next_h, next_c
