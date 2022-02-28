@@ -1,13 +1,10 @@
-import math
+
 import os
 
 import numpy
-import torch
-import torch.nn as nn
 import torch.nn.functional as F
 
 from modules.modulated_deform_conv import _ModulatedDeformConv
-from modules.modulated_deform_conv import ModulatedDeformConvPack
 from rootmodel.common import *
 
 

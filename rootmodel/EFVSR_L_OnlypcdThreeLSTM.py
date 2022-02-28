@@ -1,6 +1,5 @@
-import os
 
-import numpy
+
 import torch
 from torch import nn
 import torch.nn.functional as f
@@ -129,7 +128,6 @@ class DCNv2Pack(ModulatedDeformConvPack):
                                     self.groups, self.deformable_groups,
                                     self.im2col_step)
 
-
 # DCNv2Pack = ModulatedDeformConvPack
 
 class PCDAlignment(nn.Module):
@@ -199,49 +197,11 @@ class PCDAlignment(nn.Module):
             scale_factor=2, mode='bilinear', align_corners=False)
         self.lrelu = nn.LeakyReLU(negative_slope=0.1, inplace=True)
 
-    #
-    # def save_feature_three(self, feat_ID, i, feat):
-    #     if not os.path.exists("data/feature/"):
-    #         os.makedirs("data/feature/")
-    #     np_feat = feat.cpu().detach().numpy()
-    #     numpy.save("data/feature/" + feat_ID + "_{}.npy".format(i), np_feat)
-    # def get_feature_three(self, feat_ID):
-    #     tensor_feat = []
-    #     if not os.path.exists("data/feature/"):
-    #         os.makedirs("data/feature/")
-    #     if os.path.exists("data/feature/" + feat_ID + "_0.npy"):
-    #         np_feat1 = numpy.load("data/feature/" + feat_ID + "_0.npy")
-    #         np_feat2 = numpy.load("data/feature/" + feat_ID + "_1.npy")
-    #         np_feat3 = numpy.load("data/feature/" + feat_ID + "_2.npy")
-    #         tensor_feat.append(torch.from_numpy(np_feat1))
-    #         tensor_feat.append(torch.from_numpy(np_feat2))
-    #         tensor_feat.append(torch.from_numpy(np_feat3))
-    #         return True, tensor_feat
-    #     else:
-    #         return False, None
-    def get_feature_PCD(self, feat_ID, i):
-        if not os.path.exists("../data/feature/"):
-            os.makedirs("../data/feature/")
-        if os.path.exists("data/feature/" + feat_ID + "_{}_pcd_h.npy".format(i)):
-            np_feat_h = numpy.load("data/feature/" + feat_ID + "_{}_pcd_h.npy".format(i))
-            np_feat_c = numpy.load("data/feature/" + feat_ID + "_{}_pcd_c.npy".format(i))
-            return True, np_feat_h, np_feat_c
-        else:
-            print("No this:")
-            print("data/feature/" + feat_ID + "_{}_pcd_h.npy".format(i))
-            return False, None, None
 
-    def save_feature_PCD(self, feat_ID, i, feat_h, feat_c):
-        if not os.path.exists("../data/feature/"):
-            os.makedirs("../data/feature/")
-        np_feat_h = feat_h.cpu().detach().numpy()
-        np_feat_c = feat_c.cpu().detach().numpy()
-        numpy.save("data/feature/" + feat_ID + "_{}_pcd_h.npy".format(i), np_feat_h)
-        numpy.save("data/feature/" + feat_ID + "_{}_pcd_c.npy".format(i), np_feat_c)
-        # print("data/feature/" + feat_ID + "_{}_pcd_h.npy".format(i))
-
-    def forward(self, feat_ID, nbr_feat_l, ref_feat_l, sav):
+    def forward(self, last_h, last_c, nbr_feat_l, ref_feat_l, sav):
         # Pyramids
+        next_h = []
+        next_c = []
         for i in range(3, 0, -1):
             level = f'l{i}'
             offset = torch.cat([nbr_feat_l[i - 1], ref_feat_l[i - 1]], dim=1)
@@ -255,12 +215,12 @@ class PCDAlignment(nn.Module):
 
             feat = self.dcn_pack[level](nbr_feat_l[i - 1], offset)
             if sav:
-                Nofirst, prefeat_h, prefeat_c = self.get_feature_PCD(feat_ID, i - 1)
-                if Nofirst:
-                    feat, next_c = self.LSTM[level](feat, prefeat_h, prefeat_c)
+                if last_h is None:
+                    feat, this_c = self.LSTM[level](feat, prev_hidden=None, prev_cell=None)
                 else:
-                    feat, next_c = self.LSTM[level](feat, prev_hidden=None, prev_cell=None)
-                self.save_feature_PCD(feat_ID, i - 1, feat, next_c)
+                    feat, this_c = self.LSTM[level](feat, prev_hidden=last_h[3-i], prev_cell=last_c[3-i])
+                next_h.append(feat)
+                next_c.append(this_c)
             if i < 3:
                 feat = self.feat_conv[level](
                     torch.cat([feat, upsampled_feat], dim=1))
@@ -278,7 +238,7 @@ class PCDAlignment(nn.Module):
         offset = self.lrelu(
             self.cas_offset_conv2(self.lrelu(self.cas_offset_conv1(offset))))
         feat = self.lrelu(self.cas_dcnpack(feat, offset))
-        return feat
+        return feat, next_h, next_c
 
 
 class TSAFusion(nn.Module):
@@ -393,48 +353,11 @@ class EFVSR(nn.Module):
         # activation function
         self.lrelu = nn.LeakyReLU(negative_slope=0.1, inplace=True)
 
-    def get_feature(self, feat_ID):
-        tensor_feat = []
-        if not os.path.exists("../data/feature/"):
-            os.makedirs("../data/feature/")
-        if os.path.exists("data/feature/" + feat_ID + ".npy"):
-            np_feat_h = numpy.load("data/feature/" + feat_ID + "_pre_h.npy")
-            np_feat_c = numpy.load("data/feature/" + feat_ID + "_pre_c.npy")
-            return True, np_feat_h, np_feat_c
-        else:
-            return False, None, None
-
-    def save_feature(self, feat_ID, feat_h, feat_c):
-        if not os.path.exists("../data/feature/"):
-            os.makedirs("../data/feature/")
-        np_feat_h = feat_h.cpu().detach().numpy()
-        np_feat_c = feat_c.cpu().detach().numpy()
-        numpy.save("data/feature/" + feat_ID + "_pre_h.npy", np_feat_h)
-        numpy.save("data/feature/" + feat_ID + "_pre_c.npy", np_feat_c)
-
-    def forward(self, x, feat_ID):
-        feat_ID = str(feat_ID)
+    def forward(self, x, last_h, last_c):
         b, t, c, h, w = x.size()
         x_center = x[:, 0, :, :, :].contiguous()
 
         # extract features for each frame
-        # L1
-        # print("X:{}".format(x.size()))
-        Nofirst, prefeat_h, prefeat_c = self.get_feature(feat_ID)
-        if Nofirst:
-            prefeat_h = prefeat_h.cuda()
-            prefeat_c = prefeat_c.cuda()
-        # extract features for each frame
-        # L1
-
-        # add LSTM
-        # first = self.lrelu(self.conv_first(x.view(-1, c, h, w)))
-        # first = first.view(b, t, -1, h, w)
-        # next_h, next_c = self.LSTM(first[:, 1, :, :, :], prefeat_h, prefeat_c)
-        # self.save_feature(feat_ID, next_h, next_c)
-        # feat_l1 = torch.stack((first[:, 0, :, :, :], next_h), dim=1)
-        # feat_l1 = self.feature_extraction(feat_l1.view(-1, 64, h, w))
-
         # orign
         feat_l1 = self.lrelu(self.conv_first(x.view(-1, c, h, w)))
         feat_l1 = self.feature_extraction(feat_l1)
@@ -464,9 +387,10 @@ class EFVSR(nn.Module):
                 feat_l3[:, i, :, :, :].clone()
             ]
             if i == 0:
-                aligned_feat.append(self.pcd_align(feat_ID, nbr_feat_l, ref_feat_l, sav=False))
+                feat, _, _ = self.pcd_align(last_h, last_c, nbr_feat_l, ref_feat_l, sav=False)
             else:
-                aligned_feat.append(self.pcd_align(feat_ID, nbr_feat_l, ref_feat_l, sav=True))
+                feat, next_h, next_c = self.pcd_align(last_h, last_c, nbr_feat_l, ref_feat_l, sav=True)
+            aligned_feat.append(feat)
         aligned_feat = torch.stack(aligned_feat, dim=1)  # (b, t, c, h, w)
 
         feat = self.fusion(aligned_feat)
@@ -478,4 +402,5 @@ class EFVSR(nn.Module):
         out = self.conv_last(out)
         base = F.interpolate(x_center, scale_factor=4, mode='bilinear', align_corners=False)
         out += base
-        return out
+        return out, next_h, next_c
+

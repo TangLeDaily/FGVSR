@@ -1,13 +1,9 @@
-import math
-import os
 
-import numpy
+
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from torch.nn import init as init
 
-from modules.modulated_deform_conv import _ModulatedDeformConv
 from modules.modulated_deform_conv import ModulatedDeformConvPack
 
 # in: 64  out: 64  without BN

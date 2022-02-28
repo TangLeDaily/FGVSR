@@ -28,7 +28,7 @@ parser.add_argument("--frame", default=100, type=int, help="use cuda?")
 parser.add_argument("--model_mark", default=0, type=int, help="which model to train? 0:default")
 parser.add_argument("--resume", default='', type=str, help="path to latest checkpoint (default: none)")
 parser.add_argument("--start_epoch", default=0, type=int, help="manual epoch number (useful on restarts)")
-parser.add_argument("--batchSize", type=int, default=16, help="training batch size")  # default 16
+parser.add_argument("--batchSize", type=int, default=4, help="training batch size")  # default 16
 parser.add_argument("--nEpochs", type=int, default=10000, help="number of epochs to train for")
 parser.add_argument("--miniEpochs", type=int, default=0, help="number of epochs to train for")
 parser.add_argument("--lr", type=float, default=0.0004, help="Learning Rate. Default=1e-4")
@@ -43,7 +43,7 @@ epoch_avr_loss = 0
 n_iter = 0
 in_nc = 3
 out_nc = 3
-
+torch.backends.cudnn.enabled = False
 
 def get_yu(model):
     kk = torch.load("checkpoints/EFVSR_L_onlyLSTM/model_epoch_60_psnr_27.0211.pth", map_location='cpu')
@@ -84,7 +84,7 @@ def main():
     torch.manual_seed(opt.seed)
     if cuda:
         torch.cuda.manual_seed(opt.seed)
-    cudnn.benchmark = True
+    # cudnn.benchmark = True
 
     print("===> Loading datasets")
     train_set = train_data_set(opt.train_root_path, batchsize=opt.batchSize)
@@ -171,8 +171,6 @@ def train(optimizer, model, criterion, epoch, train_dataloader):
             print('epoch_iter_{}_ID_{}_loss is {:.10f}_psnrroot_is_{:.4f}'.format(iteration, feat_ID, avg_loss.avg,psnrroot))
         if iteration % 500 == 0:
             psnrr = test_train_set(model, epoch)
-    psnr = test_train_set(model, epoch)
-    save_checkpoint(model, psnr, epoch)
 
 
 def save_checkpoint(model, psnr, epoch):

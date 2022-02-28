@@ -62,7 +62,7 @@ class Fusion_last(nn.Module):
 
 
 class head(nn.Module):
-    def __init__(self, nf, ng):
+    def     __init__(self, nf, ng):
         super(head, self).__init__()
         pad = (0, 1, 1)
         self.bn3d_1 = nn.BatchNorm3d(nf, eps=1e-3, momentum=1e-3)
@@ -181,7 +181,7 @@ class last(nn.Module):
 
 
 class TGA(nn.Module):
-    def __init__(self, scale):
+    def __init__(self, scale=4):
         super(TGA, self).__init__()
         self.scale = scale
         nf = 64
@@ -230,8 +230,11 @@ class TGA(nn.Module):
         self.conv3d_r3 = nn.Conv3d(128, scale * 3, (1, 1, 1), stride=(1, 1, 1), padding=(0, 0, 0))
         self.conv3d_r3.apply(initialize_weights)
 
-    def forward(self, x, HR):
+    def forward(self, x):
+        x_center = x[:,1,:,:,:].contiguous()
+        x = x.permute(0, 2, 1, 3, 4)
         B, C, T, H, W = x.shape
+
         x = F.relu(self.bn3d_1(self.conv3d_1(x)))
         x = F.relu(self.bn3d_2(self.conv3d_2(x)))
         x = F.relu(self.bn3d_2_1(self.conv3d_2_1(x)))
@@ -259,7 +262,8 @@ class TGA(nn.Module):
         Rx = torch.unsqueeze(Rx, dim=2)
         Rx = F.relu(self.conv3d_r4(Rx))
         Rx = self.conv3d_r3(Rx)
-        out = HR + F.pixel_shuffle(Rx.squeeze_(2), 2)
+        base = F.interpolate(x_center, scale_factor=4, mode='bilinear', align_corners=False)
+        out = base + F.pixel_shuffle(Rx.squeeze_(2), 2)
         return out
 
 

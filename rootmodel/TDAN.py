@@ -1,10 +1,7 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 import torch.nn.init as init
-from torch.autograd import Variable, Function
 import math
-import numpy as np
 # from modules import ConvOffset2d
 from modules.modulated_deform_conv import _ModulatedDeformConv
 from modules.modulated_deform_conv import ModulatedDeformConvPack
@@ -68,10 +65,10 @@ class TDAN_VSR(nn.Module):
         self.up = nn.Sequential(*upscaling)
 
         # xavier initialization
-        for m in self.modules():
-            if isinstance(m, nn.Conv2d):
-                n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
-                m.weight.data.normal_(0, math.sqrt(2. / n))
+        # for m in self.modules():
+        #     if isinstance(m, nn.Conv2d):
+        #         n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
+        #         m.weight.data.normal_(0, math.sqrt(2. / n))
 
     def align(self, x, x_center):
         y = []
@@ -109,7 +106,6 @@ class TDAN_VSR(nn.Module):
         return nn.Sequential(*layers)
 
     def forward(self, x):
-
         batch_size, num, ch, w, h = x.size()  # 2 video frames
         # center frame interpolation
         center = 0

@@ -119,6 +119,7 @@ class NonLocalBlock(torch.nn.Module):
         assert self.nltype <= 2, ValueError("nltype must <= 2")
         # g
         g = self.convolution_g(input_x)
+
         if self.sub_sample > 1:
             g = self.pooling_g(g)
         # phi
@@ -140,11 +141,12 @@ class NonLocalBlock(torch.nn.Module):
             raise ValueError('nltype can not be: {}'.format(self.nltype))
 
         g_x = g.reshape([batch_size, -1, self.out_channels])
+
         theta_x = theta.reshape([batch_size, -1, self.out_channels])
         phi_x = phi.reshape([batch_size, -1, self.out_channels])
         phi_x = phi_x.permute(0, 2, 1)
-
         f = torch.matmul(theta_x, phi_x)
+
         if self.nltype <= 1:
             f = torch.exp(f)
             f_softmax = f / f.sum(dim=-1, keepdim=True)
@@ -250,7 +252,6 @@ class PFNL(nn.Module):
 
         # print("input0:{}".format(input0.size()))
         input1 = self.space_to_depth(input0)
-        # print("input1:{}".format(input1.size()))
         input1 = self.nonlocal_block(input1)
         input1 = self.depth_to_space(input1)
         input0 += input1
@@ -261,9 +262,6 @@ class PFNL(nn.Module):
         # basic = input_image[:, 0, :, :, :].squeeze(0)
         basic = F.interpolate(
             input_image[:, 0, :, :, :], scale_factor=4, mode='bilinear', align_corners=False)
-        # print(basic.size())
-        # basic = self.perform_bicubic(basic, 4)
-        # basic = basic.unsqueeze(0)
 
         for i in range(20):
             input1 = [self.convolution_layer1[i](frame) for frame in input0]

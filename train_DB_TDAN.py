@@ -15,8 +15,6 @@ from torch.nn import functional as F
 
 from dataset_E import *
 from util import *
-from model import *
-from srresnet import *
 from rootmodel.TDAN import *
 
 parser = argparse.ArgumentParser(description="PyTorch Data_Pre")
@@ -31,7 +29,7 @@ parser.add_argument("--start_epoch", default=0, type=int, help="manual epoch num
 parser.add_argument("--batchSize", type=int, default=16, help="training batch size")  # default 16
 parser.add_argument("--nEpochs", type=int, default=10000, help="number of epochs to train for")
 parser.add_argument("--miniEpochs", type=int, default=0, help="number of epochs to train for")
-parser.add_argument("--lr", type=float, default=0.0004, help="Learning Rate. Default=1e-4")
+parser.add_argument("--lr", type=float, default=0.00001, help="Learning Rate. Default=1e-4")
 parser.add_argument("--threads", type=int, default=8, help="number of threads for data loader to use")
 parser.add_argument("--scale", type=int, default=4, help="Scale default:4x")
 parser.add_argument("--loss", type=int, default=0, help="the loss function, default")
@@ -128,12 +126,6 @@ def main():
         save_checkpoint(model, psnr, epoch)
 
 
-def del_train_feat(filename):
-    for i in range(3):
-        if os.path.exists("data/feature/" + filename + "_{}.npy".format(i)):
-            os.remove("data/feature/" + filename + "_{}.npy".format(i))
-
-
 def train(optimizer, model, criterion, epoch, train_dataloader):
     global min_avr_loss
     global save_flag
@@ -149,7 +141,7 @@ def train(optimizer, model, criterion, epoch, train_dataloader):
     model.train()
     avg_loss = AverageMeter()
     for iteration, batch in enumerate(train_dataloader):
-        input, target, feat_I_D = batch
+        input, target = batch
         feat_ID = iteration // opt.frame + 1500
         if iteration % opt.frame == 0:
             del_train_feat(str(feat_ID))
@@ -163,16 +155,12 @@ def train(optimizer, model, criterion, epoch, train_dataloader):
         optimizer.step()
         avg_loss.update(loss.item())
         if iteration % 50 == 0:
-            # inp = F.interpolate(input, scale_factor=4, mode='bilinear', align_corners=False)
-            # psnrroot = calc_psnr(inp[0,:,:,:], target[0,:,:,:])
             psnrroot = 100
             if use_wandb:
                 wandb.log({'epoch': epoch, 'iter_loss': avg_loss.avg, 'psnr_root':psnrroot})
             print('epoch_iter_{}_ID_{}_loss is {:.10f}_psnrroot_is_{:.4f}'.format(iteration, feat_ID, avg_loss.avg,psnrroot))
         if iteration % 500 == 0:
             psnrr = test_train_set(model, epoch)
-    psnr = test_train_set(model, epoch)
-    save_checkpoint(model, psnr, epoch)
 
 
 def save_checkpoint(model, psnr, epoch):
@@ -212,7 +200,7 @@ def test_train_set(this_model, epoch_num):
             model = model.cpu()
         model.eval()
         for iteration, batch in enumerate(test_loader, 1):
-            input, target, I_D = batch
+            input, target = batch
             ID = "DB_TDAN"
             if opt.test_cuda:
                 input = input.cuda()
@@ -224,32 +212,6 @@ def test_train_set(this_model, epoch_num):
         print("--->This--DB_TDAN--epoch:{}--Avg--PSNR: {:.4f} dB--Root--PSNR: 24.11 dB".format(epoch_num,
                                                                                                psnr.avg))
     return psnr.avg
-
-
-def test_total_set(this_model, epoch_num):
-    print(" -- Start eval --")
-    test_set = test_data_set(opt.test_root_path, "000/")
-    test_loader = DataLoader(dataset=test_set, batch_size=1, shuffle=True, num_workers=opt.threads)
-    psnr = AverageMeter()
-    with torch.no_grad():
-        model = this_model
-        if opt.cuda:
-            model = model.cuda()
-        model.eval()
-        for i in range(1, 100):
-            for iteration, batch in enumerate(test_loader, 1):
-                input, target, I_D = batch
-                ID = "test"
-                if opt.cuda:
-                    input = input.cuda()
-                    target = target.cuda()
-                out = model(input, ID)
-                if i == 99:
-                    psnr.update(calc_psnr(out, target), len(out))
-        if use_wandb:
-            wandb.log({'epoch': epoch_num, 'total_psnr': psnr.avg})
-        print(
-            "--->This--SPVSR_G--epoch:{}--TotalAvg--PSNR: {:.4f} dB--Root--PSNR: 24.11 dB".format(epoch_num, psnr.avg))
 
 
 if __name__ == "__main__":

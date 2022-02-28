@@ -1,82 +1,75 @@
+# coding=gbk
+
 import os
 
-import numpy as np
-from PIL import Image
-from torch.utils import data
-from torchvision import transforms
-from torch.utils.data import DataLoader
+# 文件复制
+# src_path = r'C:\Users\RSB\Desktop\Python文件夹\p1'
+# target_path = r'C:\Users\RSB\Desktop\Python文件夹\p3'
+#
+# filelist = os.listdir(src_path)
+# print(filelist)
 
-def load_img(filepath):
-    img = Image.open(filepath)
-    return img
+# target_rootpath = 'datasets/train_add/target'
+# oring_rootpath_1 = 'datasets/test/target/000'
+# oring_rootpath_2 = 'datasets/test/target/011'
+# oring_rootpath_3 = 'datasets/test/target/015'
+# oring_rootpath_4 = 'datasets/test/target/020'
 
-def get_pic_name_lis(rootpath, path): #datasets/train/   and   000/
-    imgls = []
-    for i in os.listdir(rootpath + "input/" + path):
-        imgls.append(i)
-    imglss = sorted(imgls)
-    return imglss
+target_rootpath = 'datasets/train_add/input'
+oring_rootpath_1 = 'datasets/test/input/000'
+oring_rootpath_2 = 'datasets/test/input/011'
+oring_rootpath_3 = 'datasets/test/input/015'
+oring_rootpath_4 = 'datasets/test/input/020'
 
-def get_path(rootpath): #datasets/train/
-    pathls = []
-    for i in os.listdir(rootpath + "input/"):
-        pathls.append(i+"/")
-    return pathls
+def makedir():
+    print("======== make_dir")
+    for i in range(64):
+        path = os.path.join(target_rootpath, str(i).rjust(3, '0'))
+        print(path)
+        os.mkdir(path)
+    print("======== make_dir_over")
 
-def get_total_path(rootpath, mid, pathls):
-    out = []
-    for path in pathls:
-        out.append(rootpath + mid + path)
-    return out
+def copy_list():
+    orinpath = None
+    targepath = None
+    for i in range(64):
+        if i%4 == 0:
+            orinpath = oring_rootpath_1
+            targepath = os.path.join(target_rootpath, str(i).rjust(3, '0'))
+            copy(orinpath, targepath)
+        elif i%4 == 1:
+            orinpath = oring_rootpath_2
+            targepath = os.path.join(target_rootpath, str(i).rjust(3, '0'))
+            copy(orinpath, targepath)
+        elif i%4 == 2:
+            orinpath = oring_rootpath_3
+            targepath = os.path.join(target_rootpath, str(i).rjust(3, '0'))
+            copy(orinpath, targepath)
+        else:
+            orinpath = oring_rootpath_4
+            targepath = os.path.join(target_rootpath, str(i).rjust(3, '0'))
+            copy(orinpath, targepath)
+    # 获取文件夹里面内容
+def copy(orinpath, targepath):
+    filelist = os.listdir(orinpath)
+    # 遍历列表
+    for file in filelist:
+        # 拼接路径
+        path = os.path.join(orinpath, file)
+        tar_path = targepath
+        # 不是文件夹则直接进行复制
+        with open(path, 'rb') as rstream:
+            container = rstream.read()
+            path1 = os.path.join(tar_path, file)
+            with open(path1, 'wb') as wstream:
+                wstream.write(container)
+    else:
+        print('{} == > {} 复制完成！'.format(orinpath, targepath))
 
 
+# 调用copy
+# copy(src_path, target_path)
 
-class train_data_set(data.Dataset):
-    def __init__(self, rootpath, batchsize): #datasets/train/
-        super(train_data_set, self).__init__()
-        self.batchsize = batchsize
-        self.pathls = get_path(rootpath) # 000/ 001/ 002/
-        self.input_path_ls = get_total_path(rootpath, "input/", self.pathls)  #datasets/train/input/000/
-        self.target_path_ls = get_total_path(rootpath, "target/", self.pathls)
-        self.pic_name_lis = get_pic_name_lis(rootpath, self.pathls[0])
-        self.transLR = transforms.Compose([
-            transforms.ToTensor()
-             ,transforms.CenterCrop(128)
-            ])
-        self.transHR = transforms.Compose([
-            transforms.ToTensor()
-             ,transforms.CenterCrop(128*4)
-            ])
-
-    def __len__(self):
-        print(len(self.input_path_ls) * len(self.pic_name_lis))
-        return len(self.input_path_ls) * len(self.pic_name_lis)
-
-    def __getitem__(self, idx):
-        video_Bo = idx // (self.batchsize * len(self.pic_name_lis)) # 16 // 8 * 100 = 0,  821 // 8 * 100 = 1
-        video_ID = idx % self.batchsize # 16 % 8 = 0, 821 % 8 = 5
-        video_real_ID = self.batchsize * video_Bo + video_ID # 0*8 + 0 = 0,  1*8 + 5 = 13
-        frame = idx % (self.batchsize * len(self.pic_name_lis)) // self.batchsize # 16 % 800 // 8 = 2, 821 % 800 // 8 = 21 // 8 = 2
-        feat_ID = video_real_ID
-        lr = self.transLR(load_img(self.input_path_ls[video_real_ID] + self.pic_name_lis[frame]))
-        hr = self.transHR(load_img(self.target_path_ls[video_real_ID] + self.pic_name_lis[frame]))
-        return lr, hr, feat_ID
-class test_data_set(data.Dataset):
-    def __init__(self, rootpath, path): #datasets/test/  and 000/
-        super(test_data_set, self).__init__()
-        self.feat_ID = "test_G"
-        self.input_path = rootpath + "input/" + path  #datasets/test/input/000/
-        self.target_path = rootpath + "target/" + path
-        self.pic_name_lis = get_pic_name_lis(rootpath, path)
-        self.transLR = transforms.Compose([
-            transforms.ToTensor()])
-        self.transHR = transforms.Compose([
-            transforms.ToTensor()])
-
-    def __len__(self):
-        return len(self.pic_name_lis)
-
-    def __getitem__(self, idx):
-        lr = self.transLR(load_img(self.input_path + self.pic_name_lis[idx]))
-        hr = self.transHR(load_img(self.target_path + self.pic_name_lis[idx]))
-        return lr, hr,  self.feat_ID
+if __name__ == "__main__":
+    makedir()
+    copy_list()

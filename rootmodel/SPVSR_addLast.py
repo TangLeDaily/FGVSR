@@ -1,9 +1,7 @@
-import torch
-from torch import nn as nn
+
 from torch.nn import functional as F
 
 from modules.modulated_deform_conv import _ModulatedDeformConv
-from modules.modulated_deform_conv import ModulatedDeformConvPack
 from rootmodel.common import *
 
 # 老模型，尝试使用预训练pcd

@@ -73,26 +73,22 @@ class train_data_set(data.Dataset):
         self.lastID = []
         self.randintX = []
         self.randintY = []
-        for i in range(self.batchsize):
-            self.lastID.append(0)
-            self.randintX.append(0)
-            self.randintY.append(0)
+        for i in range(len(self.input_path_ls) + 200):
+            self.randintX.append(rand())
+            self.randintY.append(rand())
         self.crop = transforms.Compose([RandomCrop()])
     def __len__(self):
 
         return len(self.input_path_ls) * len(self.pic_name_lis)
 
     def __getitem__(self, idx):
-        video_Bo = idx // (self.batchsize * len(self.pic_name_lis))  # 16 // 8 * 100 = 0,  821 // 8 * 100 = 1
-        video_ID = idx % self.batchsize  # 16 % 8 = 0, 821 % 8 = 5
-        video_real_ID = self.batchsize * video_Bo + video_ID  # 0*8 + 0 = 0,  1*8 + 5 = 13
+        video_Bo = idx // (self.batchsize * len(self.pic_name_lis))  # 9 // 8 * 100 = 0,  41 // 8 * 100 = 0
+        video_ID = idx % self.batchsize  # 9 % 8 = 1, 41 % 8 = 1
+        video_real_ID = self.batchsize * video_Bo + video_ID  # 0*8 + 1 = 1,  0*8 + 1 = 1
         frame = idx % (self.batchsize * len(
             self.pic_name_lis)) // self.batchsize  # 16 % 800 // 8 = 2, 821 % 800 // 8 = 21 // 8 = 2
-        feat_ID = video_real_ID
-        if video_real_ID != self.lastID[video_ID]:
-            self.randintX[video_ID] = rand()
-            self.randintY[video_ID] = rand()
-            self.lastID[video_ID] = video_real_ID
+        if video_real_ID > 235:
+            video_real_ID = video_real_ID - 236
 
         lrC = self.transLR(load_img(self.input_path_ls[video_real_ID] + self.pic_name_lis[frame]))
         if frame == 0:
@@ -100,11 +96,10 @@ class train_data_set(data.Dataset):
         else:
             lrN = self.transLR(load_img(self.input_path_ls[video_real_ID] + self.pic_name_lis[frame-1]))
         hr = self.transHR(load_img(self.target_path_ls[video_real_ID] + self.pic_name_lis[frame]))
-        sample = {'lrC': lrC, 'lrN': lrN, 'hr': hr, 'ranintX': self.randintX[video_ID], 'ranintY': self.randintY[video_ID]}
+        sample = {'lrC': lrC, 'lrN': lrN, 'hr': hr, 'ranintX': self.randintX[video_real_ID], 'ranintY': self.randintY[video_real_ID]}
         lrCC, lrNN, hrr = self.crop(sample)
-        # lrCC, lrNN, hrr = lrC, lrN, hr
         lrr = torch.stack((lrCC, lrNN), dim=0)
-        return lrr, hrr, feat_ID
+        return lrr, hrr
 
 class test_data_set(data.Dataset):
     def __init__(self, rootpath, path): #datasets/test/  and 000/
@@ -129,14 +124,14 @@ class test_data_set(data.Dataset):
             lrn = self.transLR(load_img(self.input_path + self.pic_name_lis[idx-1]))
         hr = self.transHR(load_img(self.target_path + self.pic_name_lis[idx]))
         lr = torch.stack((lrc, lrn), dim=0)
-        return lr, hr,  self.feat_ID
+        return lr, hr
 
 if __name__ == "__main__":
-    dataset = train_data_set("datasets/train/", 1)
-    training_data_loader = DataLoader(dataset=dataset, batch_size=1, num_workers=0,
+    dataset = train_data_set("datasets/train/", 32)
+    training_data_loader = DataLoader(dataset=dataset, batch_size=32, num_workers=0,
                                       drop_last=True)
     for i, batch in enumerate(training_data_loader,1):
         lr, hr, ID = batch
-        save_pic(lr[0, 0, :, :, :], "test/", "lr5_{}.png".format(i))
-        save_pic(lr[0, 1, :, :, :], "test/", "lr5_neb_{}.png".format(i))
-        save_pic(hr[0, :, :, :], "test/", "hr5_{}.png".format(i))
+        # save_pic(lr[0, 0, :, :, :], "test/", "lr5_{}.png".format(i))
+        # save_pic(lr[0, 1, :, :, :], "test/", "lr5_neb_{}.png".format(i))
+        # save_pic(hr[0, :, :, :], "test/", "hr5_{}.png".format(i))
